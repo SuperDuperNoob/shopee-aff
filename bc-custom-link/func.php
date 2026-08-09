@@ -48,7 +48,7 @@ function short_link($us_id,$apiAppID,$apiSecret,$url,$subIds=[]){
 
 	$data = shopee_aff_api($apiAppID,$apiSecret,$query);
 
-	$message = 'Tạo link không thành công';
+	$message = 'Could not create the link';
 
 	if ($data){
 		if (isset($data['errors']) && $data['errors']) {
@@ -100,7 +100,7 @@ function shopee_aff_api($AppID,$APIkey,$query){
 	curl_close($curl);
 	$response = json_decode($response, TRUE);
 	if (!is_array($response)) {
-		return array('errors' => array(array('message' => 'API response không hợp lệ')));
+		return array('errors' => array(array('message' => 'Invalid API response')));
 	}
 	if ($httpCode >= 400) {
 		$apiMessage = 'Shopee API error (HTTP '.$httpCode.')';

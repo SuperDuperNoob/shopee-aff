@@ -1,21 +1,21 @@
-# Code Examples - Shopee Official API
+# Code Examples — Shopee Official API
 
-Thư mục này chứa các ví dụ gọi Shopee Affiliate Open API (GraphQL) bằng:
+This directory contains examples for calling the Shopee Affiliate Open API (GraphQL) with:
 
 - `php/`
 - `nodejs/`
 
-## Cấu hình nhanh
+## Quick setup
 
-1. Vào từng thư mục (`php` hoặc `nodejs`).
-2. Copy `.env.example` thành `.env`.
-3. Điền thông tin thật:
+1. Open either the `php` or `nodejs` directory.
+2. Copy `.env.example` to `.env`.
+3. Add your real credentials:
    - `SHOPEE_API_APP_ID`
    - `SHOPEE_API_SECRET`
-4. Chạy script theo hướng dẫn trong README từng thư mục.
+4. Follow the directory's README to run the script.
 
-## Lưu ý
+## Notes
 
-- Đây là ví dụ sử dụng API chính thống của Shopee Affiliate.
-- Tài liệu API không chính thống Product Data nằm ở `product-data-api.md`.
-- Bộ sample hiện tại hỗ trợ các API: `shopeeOfferV2`, `brandOfferV2`, `productOfferV2`, `generateShortLink`, `conversionReportV2`, `validationReportV2`.
+- These examples use Shopee Affiliate's official API.
+- The unofficial Product Data API is documented in `product-data-api.md`.
+- The samples support `shopeeOfferV2`, `brandOfferV2`, `productOfferV2`, `generateShortLink`, `conversionReportV2`, and `validationReportV2`.

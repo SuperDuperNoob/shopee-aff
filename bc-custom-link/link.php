@@ -28,7 +28,7 @@ if ($tp == 'link') {
 		else $apiSecret = '';
 
 		if (!$apiAppID || !$apiSecret) {
-			echo response('errors', 'Vui lòng điền đầy đủ AppID và Secret');
+			echo response('errors', 'Please provide both the App ID and secret');
 			exit();
 		}
 
@@ -44,12 +44,12 @@ if ($tp == 'link') {
 			$url = removeParam($url, 'xptdk');
 		}
 		if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
-			echo response('errors', 'Link không hợp lệ');
+			echo response('errors', 'Invalid URL');
 			exit();
 		}
 		$host = parse_url($url, PHP_URL_HOST);
 		if (!$host || stripos($host, 'shopee.') === false) {
-			echo response('errors', 'Chỉ hỗ trợ link Shopee');
+			echo response('errors', 'Only Shopee URLs are supported');
 			exit();
 		}
 
