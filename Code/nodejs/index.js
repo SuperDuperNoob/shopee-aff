@@ -4,6 +4,9 @@ import crypto from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const API_URL = "https://open-api.affiliate.shopee.com.my/graphql";
+// Shopee web API endpoint used when authenticating with a browser session cookie
+// instead of app_id/secret_key credentials. See COOKIE_AUTH.md at the repo root.
+const WEB_API_URL = "https://shopee.com.my/api/v4/pdp/get_pc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -96,8 +99,63 @@ export function buildAuthorization(appId, secret, payload, timestamp) {
     return `SHA256 Credential=${appId}, Timestamp=${timestamp}, Signature=${signature}`;
 }
 
-export async function callShopeeApi() {
-    const env = loadEnv(path.join(__dirname, ".env"));
+// Build headers for cookie/session authentication against Shopee's web endpoints.
+// `SHOPEE_COOKIE` should be the raw Cookie header value copied from a logged-in
+// browser session (e.g. `SPC_F=...; SPC_EC=...; csrftoken=...`). `SHOPEE_CSRF_TOKEN`
+// is optional and only needed for state-changing (POST) requests.
+export function buildWebHeaders(env) {
+    const cookie = env.SHOPEE_COOKIE || "";
+    if (!cookie) {
+        throw new Error("SHOPEE_COOKIE is required for cookie/session authentication");
+    }
+
+    const headers = {
+        Cookie: cookie,
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Referer: "https://shopee.com.my/",
+        "x-api-source": "pc",
+    };
+
+    if (env.SHOPEE_CSRF_TOKEN) {
+        headers["X-CSRFToken"] = env.SHOPEE_CSRF_TOKEN;
+    }
+
+    return headers;
+}
+
+// Cookie/session mode: read a product from Shopee's web API using a logged-in
+// browser cookie instead of app_id/secret_key credentials.
+async function callShopeeWebApi(env) {
+    const itemId = process.argv[2] || env.SHOPEE_ITEM_ID || "";
+    const shopId = process.argv[3] || env.SHOPEE_SHOP_ID || "";
+
+    if (!itemId) {
+        throw new Error(
+            "Cookie mode needs an item_id. Pass it as the first argument or set SHOPEE_ITEM_ID in .env",
+        );
+    }
+
+    const url = new URL(WEB_API_URL);
+    url.searchParams.set("item_id", itemId);
+    if (shopId) {
+        url.searchParams.set("shop_id", shopId);
+    }
+
+    const headers = buildWebHeaders(env);
+    const response = await fetch(url, { method: "GET", headers });
+    const json = await response.json();
+
+    return {
+        api: "web/pdp/get_pc",
+        auth: "cookie",
+        url: url.toString(),
+        httpCode: response.status,
+        response: json,
+    };
+}
+
+// Credential mode: official Shopee Affiliate GraphQL API with SHA-256 signature.
+async function callShopeeGraphql(env) {
     const appId = env.SHOPEE_API_APP_ID || "";
     const secret = env.SHOPEE_API_SECRET || "";
 
@@ -123,9 +181,28 @@ export async function callShopeeApi() {
     const json = await response.json();
     return {
         api: apiName,
+        auth: "credentials",
         httpCode: response.status,
         response: json,
     };
+}
+
+// Pick the auth mode automatically: credentials if an app_id + secret are set,
+// otherwise the browser-session cookie when SHOPEE_COOKIE is set.
+export async function callShopeeApi() {
+    const env = loadEnv(path.join(__dirname, ".env"));
+
+    if (env.SHOPEE_API_APP_ID && env.SHOPEE_API_SECRET) {
+        return callShopeeGraphql(env);
+    }
+
+    if (env.SHOPEE_COOKIE) {
+        return callShopeeWebApi(env);
+    }
+
+    throw new Error(
+        "Missing auth config in .env. Use SHOPEE_API_APP_ID + SHOPEE_API_SECRET (credentials) or SHOPEE_COOKIE (session cookie). See Code/nodejs/README.md and COOKIE_AUTH.md.",
+    );
 }
 
 const isDirectRun = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
@@ -141,7 +218,7 @@ if (isDirectRun) {
                     {
                         success: false,
                         error: error.message,
-                        usage: "node index.js [apiName] [originUrl-for-generateShortLink]",
+                        usage: "node index.js [apiName] [originUrl-for-generateShortLink]  (credentials) | node index.js [itemId] [shopId]  (cookie mode)",
                     },
                     null,
                     2,
