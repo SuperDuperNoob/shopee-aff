@@ -1,31 +1,27 @@
 # Node.js example
 
-## 1) Tạo file env local
+## 1. Create a local environment file
 
 ```bash
 cp .env.example .env
 ```
 
-Cập nhật `.env` với thông tin thật:
+Add your real credentials to `.env`:
 
 ```env
 SHOPEE_API_APP_ID=your_real_app_id
 SHOPEE_API_SECRET=your_real_api_secret
 ```
 
-## 2) Chạy script
+## 2. Run the script
 
 ```bash
 npm run start
 ```
 
-Script sẽ:
+The script builds a GraphQL payload, creates a SHA-256 signature in Shopee's Authorization format, and calls `https://open-api.affiliate.shopee.vn/graphql`.
 
-- Tạo GraphQL payload.
-- Tạo chữ ký SHA256 theo format Authorization của Shopee.
-- Gọi endpoint `https://open-api.affiliate.shopee.vn/graphql`.
-
-## API có sẵn (tham số `apiName`)
+## Available APIs (`apiName` argument)
 
 - `shopeeOfferV2`
 - `brandOfferV2`
@@ -34,7 +30,7 @@ Script sẽ:
 - `conversionReportV2`
 - `validationReportV2`
 
-## Ví dụ
+## Examples
 
 ```bash
 node index.js shopeeOfferV2
@@ -44,7 +40,7 @@ node index.js conversionReportV2
 node index.js validationReportV2
 ```
 
-## Kiểm tra nhanh trước khi push
+## Checks before pushing
 
 ```bash
 npm run lint

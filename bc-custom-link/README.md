@@ -1,14 +1,17 @@
-## ```bc-custom-link``` Tạo Link Rút Gọn
-Rút gọn link Shopee cho một trang cụ thể trên Shopee
+## `bc-custom-link` — Short-Link Generator
 
-### Install
-1. ```link.php``` Line 50 & 51 add AppID and API key, see at https://affiliate.shopee.vn/open_api
-2. ```func.php``` Line 115 & 122 edit domain
-![|](https://i.imgur.com/Bc6X9ub.png)
+Shorten a URL for a specific Shopee page.
 
-SQL Table:
+### Installation
 
-```
+1. Add your App ID and API key to lines 50–51 of `link.php`. Credentials are available from <https://affiliate.shopee.vn/open_api>.
+2. Update the domain on lines 115 and 122 of `func.php`.
+
+![Configuration example](https://i.imgur.com/Bc6X9ub.png)
+
+### SQL table
+
+```sql
 CREATE TABLE `shopee_affiliate_link` (
   `id` int(11) NOT NULL,
   `us_id` varchar(128) DEFAULT NULL,
@@ -24,4 +27,4 @@ ALTER TABLE `shopee_affiliate_link`
   ADD PRIMARY KEY (`id`);
 ```
 
-**By Bcat95 vui lòng ghi nguồn khi chia sẻ**
+**By Bcat95. Please credit the author when sharing.**

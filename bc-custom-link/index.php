@@ -76,16 +76,16 @@ $us_id = us_id();
     <div class="page-inner m-2" style="height: auto">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="myLargeModalLabel" class="modal-title"> Tạo Link Rút Gọn </h5>
+                <h5 id="myLargeModalLabel" class="modal-title"> Create a Short Link </h5>
             </div>
             <div class="modal-body">
-                <p><strong>Rút gọn link Shopee cho một trang cụ thể trên Shopee</strong></p>
+                <p><strong>Shorten the URL of a specific Shopee page</strong></p>
                 <div class="form-group mb-2">
-                    <label class="control-label pr-1" for="customLink_original_url"><span style="color:#ff4d4f">*</span> Link gốc</label>
+                    <label class="control-label pr-1" for="customLink_original_url"><span style="color:#ff4d4f">*</span> Original URL</label>
                     <input type="text" name="customLink_original_url" id="customLink_original_url" class="form-control" value="" placeholder="Paste page URL here. i.e: https://shopee.vn/m/world-milk-day/">
                 </div>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Thông số theo dõi
+                    Tracking parameters
                 </button>
                 <div class="collapse" id="collapseExample">
                     <div class="form-row mt-2">
@@ -110,16 +110,16 @@ $us_id = us_id();
                             <input type="text" name="customLink_sub_id5" id="customLink_sub_id5" class="form-control" value="" readonly>
                         </div>
                     </div>
-                    <p>Bạn có thể thêm tham số khác để theo dõi hiệu suất liên kết của mình bằng cách gắn thẻ Sub_Id. Chỉ giá trị chữ và số (a-z, A-Z, 0-9). <br> Nhấp trực tiếp vào "Tạo link" nếu bạn không muốn thêm thông số vào liên kết của mình.</p>
+                    <p>You can add Sub_ID tags to track link performance. Use only letters and numbers (a-z, A-Z, 0-9). <br> Click "Create link" without adding parameters if you do not need additional tracking.</p>
                 </div>
                 <div class="form-actions pt-2">
-                    <button type="button" id="customLink_submit" class="btn btn-primary btn-block" style="background: #ee4d2d;border-color: #ee4d2d;">Tạo link</button>
+                    <button type="button" id="customLink_submit" class="btn btn-primary btn-block" style="background: #ee4d2d;border-color: #ee4d2d;">Create link</button>
                 </div>
                 <div id="customLink_result" class="_d-none mt-3 alert alert-soft-success alert-dismissible text-dark border-success fade show mb-3">
-                    <p><strong>Link rút gọn</strong></p>
+                    <p><strong>Short link</strong></p>
                     <div class="has-copyable mb-2">
-                        <button type="button" class="copy copy1 show" aria-label="copy" data-container="body" data-toggle="popover" data-placement="top" data-content="Chia sẻ liên kết đã sao chéo cho bạn bè hoặc chia sẻ lên mạng xã hội" title="" data-original-title="Sao chép thành công"><span aria-hidden="true"><i class="fas fa-copy"></i></span></button>
-                        <input type="text" class="form-control border-primary" id="customLink_result_link" onclick="this.select()" readonly placeholder="Chưa tạo link">
+                        <button type="button" class="copy copy1 show" aria-label="copy" data-container="body" data-toggle="popover" data-placement="top" data-content="Share the copied link with friends or on social media" title="" data-original-title="Copied successfully"><span aria-hidden="true"><i class="fas fa-copy"></i></span></button>
+                        <input type="text" class="form-control border-primary" id="customLink_result_link" onclick="this.select()" readonly placeholder="No link created">
                     </div>
                 </div>
             </div>
@@ -166,11 +166,11 @@ $us_id = us_id();
                 var $this = $(this);
                 var url = $('#customLink_original_url').val();
                 if (url == '') {
-                    alert('Vui lòng điền link hợp lệ');
+                    alert('Please enter a valid URL');
                     return;
                 }
                 if (!isValidShopeeUrl(url)) {
-                    alert('Chỉ hỗ trợ link Shopee hợp lệ');
+                    alert('Only valid Shopee URLs are supported');
                     return;
                 }
                 var Sub_id1 = $('#customLink_sub_id1').val();
@@ -179,7 +179,7 @@ $us_id = us_id();
                 var Sub_id4 = $('#customLink_sub_id4').val();
                 var Sub_id5 = $('#customLink_sub_id5').val();
 
-                $this.prop('disabled', true).text('Đang tạo...');
+                $this.prop('disabled', true).text('Creating...');
                 $.ajax({
                     type: 'POST',
                     dataType: 'JSON',
@@ -205,14 +205,14 @@ $us_id = us_id();
                         } else if (result.errors && result.errors.message) {
                             alert(result.errors.message);
                         } else {
-                            alert('Tạo link không thành công');
+                            alert('Could not create the link');
                         }
                     },
                     error: function() {
-                        alert('Không thể kết nối API. Vui lòng thử lại.');
+                        alert('Could not connect to the API. Please try again.');
                     },
                     complete: function() {
-                        $this.prop('disabled', false).text('Tạo link');
+                        $this.prop('disabled', false).text('Create link');
                     }
                 });
             });
