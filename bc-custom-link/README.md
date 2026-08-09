@@ -4,8 +4,8 @@ Shorten a URL for a specific Shopee page.
 
 ### Installation
 
-1. Add your App ID and API key to lines 50–51 of `link.php`. Credentials are available from <https://affiliate.shopee.vn/open_api>.
-2. Update the domain on lines 115 and 122 of `func.php`.
+1. Add your App ID and API key to lines 65–66 of `link.php`. Credentials are available from <https://affiliate.shopee.com.my/open_api>.
+2. Update the API domain on line 78 of `func.php` (`CURLOPT_URL`, defaults to the Malaysia endpoint `open-api.affiliate.shopee.com.my`).
 
 ![Configuration example](https://i.imgur.com/Bc6X9ub.png)
 

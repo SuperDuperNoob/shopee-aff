@@ -14,7 +14,7 @@ After static + dynamic analysis, this repo breaks into **3 logical systems**:
 ```
 shopee-aff/
 ├── 1. Official API Wrappers  (Code/php, Code/nodejs)
-│   └── GraphQL -> https://open-api.affiliate.shopee.vn/graphql
+│   └── GraphQL -> https://open-api.affiliate.shopee.com.my/graphql
 │   └── Auth: SHA256(appId + timestamp + payload + secret)
 │
 ├── 2. Custom Link App        (bc-custom-link/)
@@ -32,7 +32,7 @@ shopee-aff/
 - `bc-custom-link/link.php`: validates `shopee.` host, sanitizes subIds `[^a-zA-Z0-9_-]`, strips `sp_atk`/`xptdk` trackers
 - `func.php:shopee_aff_api()`: No SSRF protection beyond host check in caller. Timeout 30s.
 - `conn.php`: DB optional, fails open if empty credentials.
-- All secrets loaded from `.env` — but `bc-custom-link` hardcodes `demo` -> empty strings in demo mode (line 50-51 intended for you to replace).
+- All secrets loaded from `.env` — but `bc-custom-link` hardcodes `demo` -> empty strings in demo mode (line 65-66 intended for you to replace).
 
 ---
 
@@ -65,7 +65,7 @@ grep -R "curl_\|fetch\|https://\|http://" --include="*.php" --include="*.js" -n 
 
 **Finding for this repo:**
 - No `composer.json`, no `node_modules` — zero dependencies (only `crypto`, `fs`, `path` built-ins).
-- Only outbound host: `open-api.affiliate.shopee.vn` and `data.addlivetag.com`
+- Only outbound host: `open-api.affiliate.shopee.com.my` and `data.addlivetag.com`
 - All 3 PHP files in bc-custom-link share state via `require_once`.
 
 ### Phase 2: Static Analysis — Read Bottom-Up
@@ -104,7 +104,7 @@ link.php
      -> builds GraphQL mutation: mutation GenerateShortLink($originUrl: String!, $subIds: [String]) { ... }
      -> shopee_aff_api(appId, secret, json_payload)
         -> Signature = SHA256(appId + timestamp + payload + secret)
-        -> curl POST https://open-api.affiliate.shopee.vn/graphql
+        -> curl POST https://open-api.affiliate.shopee.com.my/graphql
         -> Authorization: SHA256 Credential=..., Timestamp=..., Signature=...
      -> log_shopee_affiliate_link() -> mysqli prepared stmt (safe)
      -> response() -> json_encode {success|errors: {message}}
@@ -120,7 +120,7 @@ php -S 0.0.0.0:8000
 
 # In another shell, observe
 curl -i -X POST http://localhost:8000/link.php \
-  -d "tp=link&link_action=short_link&apiAppID=demo&apiSecret=demo&us_id=test123&url=https://shopee.vn/product/38003654/1589295236&Sub_id1=MyTest"
+  -d "tp=link&link_action=short_link&apiAppID=demo&apiSecret=demo&us_id=test123&url=https://shopee.com.my/product/334425154/8200081234&Sub_id1=MyTest"
 
 # You will see the demo path: $appDemo=1 -> $apiAppID='' -> Shopee API will error -> reveals error handling
 ```
@@ -203,9 +203,9 @@ Client --(item_id or url)--> product-data.php
                                +-- rate limit: 300 req/min (API), 2000 req/min (DB) per IP (CF + XFF)
                                +-- cache: SELECT WHERE lastUpdate > NOW()-24h => return db
                                +-- else: call Shopee's internal /api/v4/item/get?itemid=... (unofficial)
-                               +-- save, compute commission:
+                               +-- save, compute commission (MYR cents):
                                     sellerComFinal = price * sellerRate * userRate * (1-tax)
-                                    shopeeComFinal = min(50000 * userRate, price*0.045) 
+                                    shopeeComFinal = min(capRaw /* 500 = RM5 per-order cap */ * userRate, price * percentLimit)
                                     commission = sum
                                +-- return JSON with priceStats, latestPriceHistory if db hit
 ```
@@ -214,16 +214,16 @@ Client --(item_id or url)--> product-data.php
 
 ```bash
 # 1. Open Shopee product in browser, DevTools -> Network, filter "item"
-# You'll see calls to https://shopee.vn/api/v4/item/get?itemid=xxx&shopid=yyy
+# You'll see calls to https://shopee.com.my/api/v4/item/get?itemid=xxx&shopid=yyy
 # Copy as cURL, replay
 
-curl 'https://shopee.vn/api/v4/item/get?itemid=1589295236&shopid=38003654' \
+curl 'https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154' \
   -H 'User-Agent: Mozilla/5.0' \
   -H 'x-api-source: pc' \
-  -H 'Referer: https://shopee.vn/'
+  -H 'Referer: https://shopee.com.my/'
 
 # 2. Short link expansion (mentioned in product-data-api.md):
-curl -Ls -o /dev/null -w '%{url_effective}\n' 'https://s.shopee.vn/4VU2IjQjPF'
+curl -Ls -o /dev/null -w '%{url_effective}\n' 'https://s.shopee.com.my/6VCtHgpohc'
 # Should redirect to full /product/... URL
 
 # 3. Observe rate limiting headers / Cloudflare
@@ -236,7 +236,7 @@ This is how `product-data-api.md` author likely discovered commission fields —
 **Postman collection deep dive:**
 
 - `Shopee-Product-Data.postman_collection.json`: 3 requests (GET item_id, GET url, POST urlencoded). Variables: base_url, item_id, product_url.
-- Good for fuzzing: try `item_id=invalid`, `url=https://evil.com`, `url=https://shopee.vn.evil.com` — see if server validates host (it should).
+- Good for fuzzing: try `item_id=invalid`, `url=https://evil.com`, `url=https://shopee.com.my.evil.com` — see if server validates host (it should).
 - Import into Postman / Insomnia / Hoppscotch and run.
 
 **Frontend (bc-custom-link/assets):**
@@ -260,7 +260,7 @@ bash tools/re-graph.sh
 bash tools/security-scan.sh
 
 # Full trace of crypto path (no real creds needed)
-node tools/trace-signature.js --appId 123 --secret test --url https://shopee.vn/product/38003654/1589295236
+node tools/trace-signature.js --appId 123 --secret test --url https://shopee.com.my/product/334425154/8200081234
 ```
 
 ### Phase 8: Document Your Findings
@@ -289,7 +289,7 @@ flowchart TD
     UI -->|2. JS Date.now + us_id cookie| JS[createLink JS]
     JS -->|3. AJAX POST| Link[link.php]
     Link -->|4. Validate host + sanitize| Func[func.php short_link]
-    Func -->|5. Build GraphQL + SHA256 sig| Shopee[https://open-api.affiliate.shopee.vn/graphql]
+    Func -->|5. Build GraphQL + SHA256 sig| Shopee[https://open-api.affiliate.shopee.com.my/graphql]
     Shopee -->|6. shortLink| Func
     Func -->|7. Log optional| DB[(MySQL shopee_affiliate_link)]
     Func -->|8. JSON response| JS
@@ -303,7 +303,7 @@ flowchart TD
     subgraph Unofficial
       Client -->|item_id/url| ProdAPI[data.addlivetag.com]
       ProdAPI -->|cache check| Cache[(DB 24h)]
-      Cache -.miss.-> ShopeeV4[shopee.vn/api/v4/item/get]
+      Cache -.miss.-> ShopeeV4[shopee.com.my/api/v4/item/get]
       ProdAPI -->|commission calc| Client
     end
 ```
@@ -386,12 +386,12 @@ Run `node tools/re-analyzer.js` after any change to refresh mental model.
 
 ## 7. Legal / Ethical Note
 
-- Official API (`open-api.affiliate.shopee.vn`) requires affiliate account — don't brute force.
-- Unofficial API (`shopee.vn/api/v4/...`) is Shopee's internal; respect TOS, rate limits, use caching.
+- Official API (`open-api.affiliate.shopee.com.my`) requires affiliate account — don't brute force.
+- Unofficial API (`shopee.com.my/api/v4/...`) is Shopee's internal; respect TOS, rate limits, use caching.
 - This guide is for **understanding and interoperability**, not for bypassing commission or scraping at scale.
 
 ---
 
-**Maintained as part of this branch `arena/019fe469-shopee-aff`.**  
+**Maintained as part of this branch `arena/019fe486-shopee-aff`.**  
 To add deeper dives, edit `docs/reverse-engineering/` and re-run analyzer.
 

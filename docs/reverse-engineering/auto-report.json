@@ -1,56 +1,56 @@
 {
-  "generatedAt": "2026-08-09T02:52:28.516Z",
+  "generatedAt": "2026-08-09T03:28:13.677Z",
   "root": "/home/user/shopee-aff",
-  "totalFiles": 25,
+  "totalFiles": 26,
   "hosts": [
-    "https://open-api.affiliate.shopee.vn/graphql`.",
-    "https://shopee.vn/product/38003654/1589295236",
-    "https://open-api.affiliate.shopee.vn/graphql",
-    "https://shopee.vn",
+    "https://open-api.affiliate.shopee.com.my/graphql`.",
+    "https://shopee.com.my/product/334425154/8200081234",
+    "https://open-api.affiliate.shopee.com.my/graphql",
+    "https://shopee.com.my",
     "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "https://data.addlivetag.com/product-data/product-data.php",
-    "https://affiliate.shopee.vn/open_api/list>",
+    "https://affiliate.shopee.com.my/open_api/list>",
     "https://addlivetag.com/shopee-affiliate-api/index.php>",
     "https://addlivetag.com/>",
-    "https://affiliate.shopee.vn/",
-    "https://open.shopee.vn/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
-    "https://shopee.vn/product/52377417/6309028319\\",
+    "https://affiliate.shopee.com.my/",
+    "https://open.shopee.com.my/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
+    "https://shopee.com.my/product/334425154/8200081234\\",
     "https://shope.ee/5XyZ7WqR",
-    "https://help.shopee.vn/portal/webform/c2d6ebc5a2d64dd1b26f8c871730cdbd",
-    "https://shopee.vn/product/38003654/1589295236&Sub_id1=MyTest",
-    "https://shopee.vn/api/v4/item/get?itemid=xxx&shopid=yyy",
-    "https://shopee.vn/api/v4/item/get?itemid=1589295236&shopid=38003654",
-    "https://shopee.vn/",
-    "https://s.shopee.vn/4VU2IjQjPF",
+    "https://help.shopee.com.my/portal/webform/99dbea1dc4894accae65f606c2f91af5",
+    "https://shopee.com.my/product/334425154/8200081234&Sub_id1=MyTest",
+    "https://shopee.com.my/api/v4/item/get?itemid=xxx&shopid=yyy",
+    "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
+    "https://shopee.com.my/",
+    "https://s.shopee.com.my/6VCtHgpohc",
     "https://evil.com",
-    "https://shopee.vn.evil.com",
-    "https://open-api.affiliate.shopee.vn/graphql]",
-    "https://affiliate.shopee.vn/open_api>.",
+    "https://shopee.com.my.evil.com",
+    "https://open-api.affiliate.shopee.com.my/graphql]",
+    "https://affiliate.shopee.com.my/open_api>.",
     "https://i.imgur.com/Bc6X9ub.png",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js",
     "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js",
-    "https://shopee.vn/m/world-milk-day/",
     "https://www.facebook.com/Bcat95/",
     "https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js",
-    "https://affiliate.shopee.vn/open_api",
+    "https://affiliate.shopee.com.my/open_api",
     "https://shp.ee/...`",
     "https://data.addlivetag.com/product-data/product-data.php`",
-    "https://open-api.affiliate.shopee.vn/graphql`",
+    "https://open-api.affiliate.shopee.com.my/graphql`",
     "https://shp.ee/...",
-    "https://shopee.vn.evil.com/product/1/1`",
-    "https://shopee.vn/product/1/1?sp_atk=evil&xptdk=evil`",
+    "https://shopee.com.my.evil.com/product/1/1`",
+    "https://shopee.com.my/product/1/1?sp_atk=evil&xptdk=evil`",
     "https://data.addlivetag.com/product-data/product-data.php`,",
-    "https://affiliate.shopee.vn/api/...`",
-    "https://shopee.vn/api/v4/pdp/get_pc`",
-    "https://shopee.vn/product/<shopId>/<itemId>`",
-    "https://shopee.vn/api/v4/pdp/get_pc?shop_id=38003654&item_id=1589295236",
-    "https://shopee.vn/product/<shop_id>/<item_id>`",
-    "https://data.addlivetag.com/product-data/product-data.php?item_id=1589295236",
-    "https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.vn/product/38003654/1589295236",
-    "https://cf.shopee.vn/file/example",
-    "https://open-api.affiliate.shopee.vn/graphql\\`\\n3."
+    "https://affiliate.shopee.com.my/api/...`",
+    "https://shopee.com.my/api/v4/pdp/get_pc`",
+    "https://shopee.com.my/product/<shopId>/<itemId>`",
+    "https://shopee.com.my/api/v4/pdp/get_pc?shop_id=334425154&item_id=8200081234",
+    "https://shopee.com.my/product/<shop_id>/<item_id>`",
+    "https://data.addlivetag.com/product-data/product-data.php?item_id=8200081234",
+    "https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.com.my/product/334425154/8200081234",
+    "https://cf.shopee.com.my/file/example",
+    "https://help.shopee.com.my/portal/10/article/124012",
+    "https://open-api.affiliate.shopee.com.my/graphql\\`\\n3."
   ],
   "graphqlOps": [
     "shopeeOfferV2",
@@ -303,11 +303,11 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql`.",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql`.",
             "line": 22
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 38
           }
         ],
@@ -467,11 +467,11 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 6
           },
           {
-            "match": "https://shopee.vn",
+            "match": "https://shopee.com.my",
             "line": 109
           }
         ],
@@ -602,11 +602,11 @@
         ],
         "externalHost": [
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 26
           },
           {
-            "match": "https://shopee.vn",
+            "match": "https://shopee.com.my",
             "line": 36
           }
         ]
@@ -671,11 +671,11 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql`.",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql`.",
             "line": 22
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 38
           }
         ],
@@ -820,11 +820,11 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 5
           },
           {
-            "match": "https://shopee.vn",
+            "match": "https://shopee.com.my",
             "line": 41
           }
         ],
@@ -935,7 +935,7 @@
             "line": 74
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 82
           }
         ]
@@ -952,7 +952,7 @@
             "line": 7
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 17
           }
         ]
@@ -960,103 +960,103 @@
     },
     {
       "path": "README.md",
-      "lines": 248,
+      "lines": 252,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopOfferV2",
-            "line": 84
+            "line": 88
           },
           {
             "match": "productOfferV2",
-            "line": 117
+            "line": 121
           },
           {
             "match": "generateShortLink",
-            "line": 139
-          },
-          {
-            "match": "generateShortLink",
-            "line": 154
+            "line": 143
           },
           {
             "match": "generateShortLink",
             "line": 158
           },
           {
+            "match": "generateShortLink",
+            "line": 162
+          },
+          {
             "match": "conversionReport",
-            "line": 163
+            "line": 167
           },
           {
             "match": "validatedReport",
-            "line": 182
+            "line": 186
           }
         ],
         "authSig": [
           {
             "match": "SHA256",
-            "line": 152
+            "line": 156
           },
           {
             "match": "Credential",
-            "line": 152
+            "line": 156
           },
           {
             "match": "Signature",
-            "line": 152
+            "line": 156
           },
           {
             "match": "Timestamp",
-            "line": 152
+            "line": 156
           }
         ],
         "externalHost": [
           {
-            "match": "https://affiliate.shopee.vn/open_api/list>",
+            "match": "https://affiliate.shopee.com.my/open_api/list>",
             "line": 5
           },
           {
             "match": "https://addlivetag.com/shopee-affiliate-api/index.php>",
-            "line": 34
+            "line": 38
           },
           {
             "match": "https://addlivetag.com/>",
-            "line": 35
+            "line": 39
           },
           {
-            "match": "https://affiliate.shopee.vn/",
-            "line": 42
+            "match": "https://affiliate.shopee.com.my/",
+            "line": 46
           },
           {
-            "match": "https://open.shopee.vn/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
-            "line": 64
+            "match": "https://open.shopee.com.my/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
+            "line": 68
           },
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
-            "line": 151
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
+            "line": 155
           },
           {
-            "match": "https://shopee.vn/product/52377417/6309028319\\",
-            "line": 154
-          },
-          {
-            "match": "https://shope.ee/5XyZ7WqR",
+            "match": "https://shopee.com.my/product/334425154/8200081234\\",
             "line": 158
           },
           {
-            "match": "https://help.shopee.vn/portal/webform/c2d6ebc5a2d64dd1b26f8c871730cdbd",
-            "line": 215
+            "match": "https://shope.ee/5XyZ7WqR",
+            "line": 162
+          },
+          {
+            "match": "https://help.shopee.com.my/portal/webform/99dbea1dc4894accae65f606c2f91af5",
+            "line": 219
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 146
+            "line": 150
           },
           {
             "match": "subIds",
-            "line": 154
+            "line": 158
           }
         ]
       }
@@ -1196,7 +1196,7 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 17
           },
           {
@@ -1204,27 +1204,27 @@
             "line": 25
           },
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 107
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236&Sub_id1=MyTest",
+            "match": "https://shopee.com.my/product/334425154/8200081234&Sub_id1=MyTest",
             "line": 123
           },
           {
-            "match": "https://shopee.vn/api/v4/item/get?itemid=xxx&shopid=yyy",
+            "match": "https://shopee.com.my/api/v4/item/get?itemid=xxx&shopid=yyy",
             "line": 217
           },
           {
-            "match": "https://shopee.vn/api/v4/item/get?itemid=1589295236&shopid=38003654",
+            "match": "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
             "line": 220
           },
           {
-            "match": "https://shopee.vn/",
+            "match": "https://shopee.com.my/",
             "line": 223
           },
           {
-            "match": "https://s.shopee.vn/4VU2IjQjPF",
+            "match": "https://s.shopee.com.my/6VCtHgpohc",
             "line": 226
           },
           {
@@ -1232,15 +1232,15 @@
             "line": 239
           },
           {
-            "match": "https://shopee.vn.evil.com",
+            "match": "https://shopee.com.my.evil.com",
             "line": 239
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 263
           },
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql]",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql]",
             "line": 292
           }
         ],
@@ -1381,7 +1381,7 @@
         ],
         "externalHost": [
           {
-            "match": "https://affiliate.shopee.vn/open_api>.",
+            "match": "https://affiliate.shopee.com.my/open_api>.",
             "line": 7
           },
           {
@@ -1520,7 +1520,7 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 78
           }
         ],
@@ -1730,7 +1730,7 @@
             "line": 29
           },
           {
-            "match": "https://shopee.vn/m/world-milk-day/",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 85
           },
           {
@@ -1833,11 +1833,11 @@
       "matches": {
         "externalHost": [
           {
-            "match": "https://affiliate.shopee.vn/open_api",
+            "match": "https://affiliate.shopee.com.my/open_api",
             "line": 65
           },
           {
-            "match": "https://affiliate.shopee.vn/open_api",
+            "match": "https://affiliate.shopee.com.my/open_api",
             "line": 66
           }
         ],
@@ -2013,6 +2013,19 @@
           {
             "match": "removeParam",
             "line": 44
+          }
+        ]
+      }
+    },
+    {
+      "path": "docs/README.md",
+      "lines": 31,
+      "functions": [],
+      "matches": {
+        "authSig": [
+          {
+            "match": "SHA256",
+            "line": 19
           }
         ]
       }
@@ -2195,19 +2208,19 @@
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql`",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql`",
             "line": 5
           },
           {
-            "match": "https://shopee.vn",
+            "match": "https://shopee.com.my",
             "line": 58
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 84
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 100
           },
           {
@@ -2286,15 +2299,15 @@
         ],
         "externalHost": [
           {
-            "match": "https://affiliate.shopee.vn/open_api",
+            "match": "https://affiliate.shopee.com.my/open_api",
             "line": 43
           },
           {
-            "match": "https://shopee.vn.evil.com/product/1/1`",
+            "match": "https://shopee.com.my.evil.com/product/1/1`",
             "line": 134
           },
           {
-            "match": "https://shopee.vn/product/1/1?sp_atk=evil&xptdk=evil`",
+            "match": "https://shopee.com.my/product/1/1?sp_atk=evil&xptdk=evil`",
             "line": 135
           }
         ],
@@ -2411,39 +2424,39 @@
             "line": 5
           },
           {
-            "match": "https://affiliate.shopee.vn/api/...`",
+            "match": "https://affiliate.shopee.com.my/api/...`",
             "line": 20
           },
           {
-            "match": "https://shopee.vn/api/v4/pdp/get_pc`",
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc`",
             "line": 20
           },
           {
-            "match": "https://shopee.vn/product/<shopId>/<itemId>`",
+            "match": "https://shopee.com.my/product/<shopId>/<itemId>`",
             "line": 22
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 45
           },
           {
-            "match": "https://shopee.vn/api/v4/item/get?itemid=1589295236&shopid=38003654",
+            "match": "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
             "line": 48
           },
           {
-            "match": "https://shopee.vn/api/v4/item/get?itemid=1589295236&shopid=38003654",
+            "match": "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
             "line": 51
           },
           {
-            "match": "https://shopee.vn/",
+            "match": "https://shopee.com.my/",
             "line": 53
           },
           {
-            "match": "https://shopee.vn/api/v4/pdp/get_pc?shop_id=38003654&item_id=1589295236",
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc?shop_id=334425154&item_id=8200081234",
             "line": 58
           },
           {
-            "match": "https://s.shopee.vn/4VU2IjQjPF",
+            "match": "https://s.shopee.com.my/6VCtHgpohc",
             "line": 78
           },
           {
@@ -2451,7 +2464,7 @@
             "line": 123
           },
           {
-            "match": "https://shopee.vn.evil.com/product/1/1`",
+            "match": "https://shopee.com.my.evil.com/product/1/1`",
             "line": 123
           }
         ],
@@ -2516,7 +2529,7 @@
     },
     {
       "path": "product-data-api.md",
-      "lines": 271,
+      "lines": 273,
       "functions": [
         "expandShortUrl"
       ],
@@ -2533,27 +2546,27 @@
             "line": 5
           },
           {
-            "match": "https://s.shopee.vn/4VU2IjQjPF",
+            "match": "https://s.shopee.com.my/6VCtHgpohc",
             "line": 51
           },
           {
-            "match": "https://s.shopee.vn/4VU2IjQjPF",
+            "match": "https://s.shopee.com.my/6VCtHgpohc",
             "line": 58
           },
           {
-            "match": "https://s.shopee.vn/4VU2IjQjPF",
+            "match": "https://s.shopee.com.my/6VCtHgpohc",
             "line": 64
           },
           {
-            "match": "https://shopee.vn/product/<shop_id>/<item_id>`",
+            "match": "https://shopee.com.my/product/<shop_id>/<item_id>`",
             "line": 93
           },
           {
-            "match": "https://data.addlivetag.com/product-data/product-data.php?item_id=1589295236",
+            "match": "https://data.addlivetag.com/product-data/product-data.php?item_id=8200081234",
             "line": 101
           },
           {
-            "match": "https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.vn/product/38003654/1589295236",
+            "match": "https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.com.my/product/334425154/8200081234",
             "line": 105
           },
           {
@@ -2561,16 +2574,20 @@
             "line": 109
           },
           {
-            "match": "https://cf.shopee.vn/file/example",
-            "line": 130
+            "match": "https://cf.shopee.com.my/file/example",
+            "line": 132
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
-            "line": 131
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 133
+          },
+          {
+            "match": "https://help.shopee.com.my/portal/10/article/124012",
+            "line": 256
           },
           {
             "match": "https://data.addlivetag.com/product-data/product-data.php`",
-            "line": 265
+            "line": 267
           }
         ],
         "curl": [
@@ -2607,7 +2624,7 @@
     },
     {
       "path": "tools/re-analyzer.js",
-      "lines": 171,
+      "lines": 172,
       "functions": [
         "walk",
         "readSafe",
@@ -2618,85 +2635,85 @@
         "jsFunction": [
           {
             "match": "function walk(",
-            "line": 27
+            "line": 28
           },
           {
             "match": "function readSafe(",
-            "line": 40
+            "line": 41
           },
           {
             "match": "function analyzeFile(",
-            "line": 63
+            "line": 64
           },
           {
             "match": "function main(",
-            "line": 102
+            "line": 103
           }
         ],
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 52
+            "line": 53
           },
           {
             "match": "productOfferV2",
-            "line": 52
+            "line": 53
           },
           {
             "match": "shopOfferV2",
-            "line": 52
+            "line": 53
           },
           {
             "match": "brandOfferV2",
-            "line": 52
+            "line": 53
           },
           {
             "match": "brandOffer",
-            "line": 52
+            "line": 53
           },
           {
             "match": "generateShortLink",
-            "line": 52
+            "line": 53
           },
           {
             "match": "conversionReport",
-            "line": 52
+            "line": 53
           },
           {
             "match": "validatedReport",
-            "line": 52
+            "line": 53
           },
           {
             "match": "conversionReportV2",
-            "line": 52
+            "line": 53
           },
           {
             "match": "validationReportV2",
-            "line": 52
+            "line": 53
           }
         ],
         "authSig": [
           {
             "match": "SHA256",
-            "line": 53
+            "line": 54
           },
           {
             "match": "Credential",
-            "line": 53
+            "line": 54
           },
           {
             "match": "Signature",
-            "line": 53
+            "line": 54
           },
           {
             "match": "Timestamp",
-            "line": 53
+            "line": 54
           }
         ],
         "externalHost": [
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql\\`\\n3.",
-            "line": 162
+            "match": "https://open-api.affiliate.shopee.com.my/graphql\\`\\n3.",
+            "line": 163
           }
         ],
         "supGlobals": [
@@ -2710,75 +2727,75 @@
           },
           {
             "match": "$_POST",
-            "line": 162
+            "line": 163
           }
         ],
         "db": [
           {
             "match": "mysqli",
-            "line": 57
+            "line": 58
           },
           {
             "match": "pdo",
-            "line": 57
+            "line": 58
           },
           {
             "match": "INSERT INTO",
-            "line": 57
+            "line": 58
           },
           {
             "match": "CREATE TABLE",
-            "line": 57
+            "line": 58
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 58
+            "line": 59
           },
           {
             "match": "subIds",
-            "line": 58
+            "line": 59
           },
           {
             "match": "Sub_id",
-            "line": 58
+            "line": 59
           },
           {
             "match": "subIds",
-            "line": 162
+            "line": 163
           }
         ],
         "dotEnv": [
           {
             "match": ".env",
-            "line": 33
+            "line": 34
           },
           {
             "match": "SHOPEE_API",
-            "line": 59
+            "line": 60
           },
           {
             "match": "APP_ID",
-            "line": 59
+            "line": 60
           },
           {
             "match": "SECRET",
-            "line": 59
+            "line": 60
           },
           {
             "match": ".env",
-            "line": 59
+            "line": 60
           }
         ],
         "removeParam": [
           {
             "match": "removeParam",
-            "line": 60
+            "line": 61
           },
           {
             "match": "removeParam",
-            "line": 60
+            "line": 61
           }
         ]
       }
@@ -2908,15 +2925,15 @@
         ],
         "externalHost": [
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 7
           },
           {
-            "match": "https://shopee.vn/product/38003654/1589295236",
+            "match": "https://shopee.com.my/product/334425154/8200081234",
             "line": 62
           },
           {
-            "match": "https://open-api.affiliate.shopee.vn/graphql",
+            "match": "https://open-api.affiliate.shopee.com.my/graphql",
             "line": 93
           }
         ],

@@ -75,7 +75,7 @@ function shopee_aff_api($AppID,$APIkey,$query){
 
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-		CURLOPT_URL => "https://open-api.affiliate.shopee.vn/graphql",
+		CURLOPT_URL => "https://open-api.affiliate.shopee.com.my/graphql",
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => "",
 		CURLOPT_MAXREDIRS => 10,

@@ -62,8 +62,8 @@ if ($tp == 'link') {
 		$subIds = array_slice(array_values(array_filter($subIds)), 0, 5);
 
 		if ($appDemo) {
-			$apiAppID = ''; // change this, see at https://affiliate.shopee.vn/open_api 
-			$apiSecret = ''; // change this, see at https://affiliate.shopee.vn/open_api
+			$apiAppID = ''; // change this, see at https://affiliate.shopee.com.my/open_api 
+			$apiSecret = ''; // change this, see at https://affiliate.shopee.com.my/open_api
 			// $subIds[] = 'bccustomlink';
 		}
 

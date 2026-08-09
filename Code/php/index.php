@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-const API_URL = 'https://open-api.affiliate.shopee.vn/graphql';
+const API_URL = 'https://open-api.affiliate.shopee.com.my/graphql';
 
 function loadEnv(string $path): array
 {
@@ -38,7 +38,7 @@ function loadEnv(string $path): array
 function buildPayload(): string
 {
     $apiName = $GLOBALS['argv'][1] ?? 'shopeeOfferV2';
-    $inputUrl = $GLOBALS['argv'][2] ?? 'https://shopee.vn';
+    $inputUrl = $GLOBALS['argv'][2] ?? 'https://shopee.com.my';
 
     $queries = [
         'shopeeOfferV2' => <<<'GQL'

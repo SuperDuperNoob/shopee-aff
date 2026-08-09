@@ -3,7 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-const API_URL = "https://open-api.affiliate.shopee.vn/graphql";
+const API_URL = "https://open-api.affiliate.shopee.com.my/graphql";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -106,7 +106,7 @@ export async function callShopeeApi() {
     }
 
     const apiName = process.argv[2] || "shopeeOfferV2";
-    const inputUrl = process.argv[3] || "https://shopee.vn";
+    const inputUrl = process.argv[3] || "https://shopee.com.my";
     const payload = buildPayload(apiName, inputUrl);
     const timestamp = Math.floor(Date.now() / 1000);
     const authorization = buildAuthorization(appId, secret, payload, timestamp);

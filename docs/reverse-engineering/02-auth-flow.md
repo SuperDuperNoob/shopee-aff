@@ -2,7 +2,7 @@
 
 ## Goal
 
-Understand how requests to `https://open-api.affiliate.shopee.vn/graphql` are authenticated, so you can reimplement in any language.
+Understand how requests to `https://open-api.affiliate.shopee.com.my/graphql` are authenticated, so you can reimplement in any language.
 
 ## Observed implementations
 
@@ -31,7 +31,7 @@ Both identical.
 
 ```
 Let:
-  appId   = string from affiliate.shopee.vn/open_api
+  appId   = string from affiliate.shopee.com.my/open_api
   secret  = string paired with appId
   ts      = floor(now() in seconds)  e.g. 1712000000
   payload = JSON.stringify({ query: "<GraphQL string>", variables?: {...} })
@@ -55,7 +55,7 @@ Two styles exist:
 **1. Inline query (Code/nodejs/index.js:40-70):**
 
 ```json
-{"query":"\nmutation {\n  generateShortLink(input: { originUrl: \"https://shopee.vn\", subIds: [\"s1\"] }) {\n    shortLink\n  }\n}\n"}
+{"query":"\nmutation {\n  generateShortLink(input: { originUrl: \"https://shopee.com.my\", subIds: [\"s1\"] }) {\n    shortLink\n  }\n}\n"}
 ```
 
 **2. Query + variables (bc-custom-link/func.php:43-49):**
@@ -81,7 +81,7 @@ Both valid GraphQL. Second is safer for escaping.
 Without valid creds you can't get 200, but you can test signature dev path:
 
 ```bash
-node tools/trace-signature.js --appId 123 --secret abc --url https://shopee.vn/product/38003654/1589295236
+node tools/trace-signature.js --appId 123 --secret abc --url https://shopee.com.my/product/334425154/8200081234
 
 # Should print:
 # - payload
@@ -97,7 +97,7 @@ Then with real creds:
 ```bash
 cd Code/nodejs
 echo "SHOPEE_API_APP_ID=real\nSHOPEE_API_SECRET=real" > .env
-node index.js generateShortLink "https://shopee.vn/product/38003654/1589295236"
+node index.js generateShortLink "https://shopee.com.my/product/334425154/8200081234"
 # Expect {"data":{"generateShortLink":{"shortLink":"https://shp.ee/..."}}}
 ```
 

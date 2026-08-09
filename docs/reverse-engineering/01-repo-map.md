@@ -40,7 +40,7 @@
 - **User story:** Affiliate pastes Shopee URL, adds up to 5 subIds for tracking, clicks Create, gets `https://shp.ee/...`
 - **Trust:** Server validates via `filter_var` + `stripos(host, 'shopee.')` + regex sanitize subIds.
 - **Side effect:** Optional INSERT into `shopee_affiliate_link` table with ip, time_create, us_id fingerprint.
-- **Demo mode:** `apiAppID='demo'` hard-coded in index.php JS -> link.php converts to empty string -> expects you to edit line 50-51. Prevents leaking creds in public repo.
+- **Demo mode:** `apiAppID='demo'` hard-coded in index.php JS -> link.php converts to empty string -> expects you to edit line 65-66. Prevents leaking creds in public repo.
 
 ### Module C: Unofficial Product Data API docs
 - **Not code, but spec** for `https://data.addlivetag.com/product-data/product-data.php`
@@ -62,7 +62,7 @@ No CLI router, no framework. All flat.
 ## Third-party surface
 
 - CDN: `cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0`, `popper.js`, `bootstrap/4.1.3`, `font-awesome/5.15.3`, `js-cookie/2.2.1`
-- API: `open-api.affiliate.shopee.vn/graphql` (official GraphQL) + `shopee.vn/api/v4/item/get` (unofficial, hypothesized) + `data.addlivetag.com`
+- API: `open-api.affiliate.shopee.com.my/graphql` (official GraphQL) + `shopee.com.my/api/v4/item/get` (unofficial, hypothesized) + `data.addlivetag.com`
 
 ## Size rationale
 

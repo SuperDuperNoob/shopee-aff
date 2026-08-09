@@ -8,7 +8,7 @@ Retrieves Shopee product information and commission details. Product data is cac
 
 ## Maintenance notice: short links
 
-Short-link processing for domains such as `s.shopee.vn` and `shp.ee` is currently restricted because high traffic affects Product Data API performance. Although a separate short-link server has been added, using an item ID or resolving the URL on your own server remains more reliable.
+Short-link processing for domains such as `s.shopee.com.my` and `shp.ee` is currently restricted because high traffic affects Product Data API performance. Although a separate short-link server has been added, using an item ID or resolving the URL on your own server remains more reliable.
 
 Recommended inputs:
 
@@ -48,20 +48,20 @@ function expandShortUrl(string $url, int $timeout = 15, int $connectTimeout = 5)
     return filter_var($final, FILTER_VALIDATE_URL) ? $final : null;
 }
 
-$longUrl = expandShortUrl('https://s.shopee.vn/4VU2IjQjPF');
+$longUrl = expandShortUrl('https://s.shopee.com.my/6VCtHgpohc');
 var_dump($longUrl);
 ```
 
 #### Bash
 
 ```bash
-curl -Ls -o /dev/null -w '%{url_effective}\n' 'https://s.shopee.vn/4VU2IjQjPF'
+curl -Ls -o /dev/null -w '%{url_effective}\n' 'https://s.shopee.com.my/6VCtHgpohc'
 ```
 
 #### Node.js (fetch, Node 18+)
 
 ```js
-const response = await fetch("https://s.shopee.vn/4VU2IjQjPF", {
+const response = await fetch("https://s.shopee.com.my/6VCtHgpohc", {
     redirect: "follow",
     headers: {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
@@ -90,31 +90,33 @@ At least one parameter is required. When `url` is provided, the API extracts its
 
 ### Supported URL formats
 
-- Full URL: `https://shopee.vn/product/<shop_id>/<item_id>`
+- Full URL: `https://shopee.com.my/product/<shop_id>/<item_id>`
 - Paths: `-i.<shop_id>.<item_id>`, `/product/<shop_id>/<item_id>`, `/opaanlp/<shop_id>/<item_id>`
 - Query strings: `?item_id=...` or `?itemId=...`
-- Short links: `s.shopee.vn`, `vn.shp.ee` (resolved with a three-second timeout when support is available)
+- Short links: `s.shopee.com.my`, `shp.ee` (resolved with a three-second timeout when support is available)
 
 ### Examples
 
 ```http
-GET https://data.addlivetag.com/product-data/product-data.php?item_id=1589295236
+GET https://data.addlivetag.com/product-data/product-data.php?item_id=8200081234
 ```
 
 ```http
-GET https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.vn/product/38003654/1589295236
+GET https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.com.my/product/334425154/8200081234
 ```
 
 ```http
 POST https://data.addlivetag.com/product-data/product-data.php
 Content-Type: application/x-www-form-urlencoded
 
-item_id=1589295236
+item_id=8200081234
 ```
 
 ## Response
 
 **Content-Type:** `application/json; charset=utf-8`
+
+**Money amounts** are expressed in MYR minor units (cents): `1290` = RM 12.90.
 
 ### Successful response
 
@@ -122,48 +124,48 @@ item_id=1589295236
 {
   "status": "success",
   "productInfo": {
-    "itemId": 1589295236,
+    "itemId": 8200081234,
     "productName": "Unisex basic long-sleeve turtleneck sweater",
     "shopName": "DYACI",
-    "price": 122200,
+    "price": 1290,
     "sales": 990,
-    "imageUrl": "https://cf.shopee.vn/file/example",
-    "productLink": "https://shopee.vn/product/38003654/1589295236",
+    "imageUrl": "https://cf.shopee.com.my/file/example",
+    "productLink": "https://shopee.com.my/product/334425154/8200081234",
     "rating": "4.80",
-    "commission": 21996,
-    "sellerComFinal": 16497,
-    "shopeeComFinal": 5499,
+    "commission": 1080,
+    "sellerComFinal": 580,
+    "shopeeComFinal": 500,
     "isXtra": true,
     "hasSellerCommission": true,
     "hasShopeeCommission": true,
-    "isCapped": false,
-    "isLimitCap": false,
-    "cap": 50000,
-    "capRaw": 50000,
-    "capAfterRate": 50000,
-    "lastUpdate": "2026-03-12 07:39:03",
+    "isCapped": true,
+    "isLimitCap": true,
+    "cap": 500,
+    "capRaw": 500,
+    "capAfterRate": 500,
+    "lastUpdate": "2026-08-08 07:39:03",
     "dataSource": "db",
     "priceStats": {
-      "currentPrice": 122200,
-      "minPrice": 99000,
-      "maxPrice": 149000,
-      "avgPrice": 117450,
-      "priceChange7d": 2300,
-      "priceChange30d": -8100,
-      "lastPriceUpdate": "2026-03-12",
-      "lowestPriceDate": "2026-02-25",
-      "highestPriceDate": "2026-03-01"
+      "currentPrice": 1290,
+      "minPrice": 990,
+      "maxPrice": 1490,
+      "avgPrice": 1174,
+      "priceChange7d": 30,
+      "priceChange30d": -110,
+      "lastPriceUpdate": "2026-08-08",
+      "lowestPriceDate": "2026-07-25",
+      "highestPriceDate": "2026-08-01"
     },
     "latestPriceHistory": {
-      "price": 122200,
-      "originalPrice": 149000,
-      "discountPercent": 18,
-      "currency": "VND",
+      "price": 1290,
+      "originalPrice": 1490,
+      "discountPercent": 13,
+      "currency": "MYR",
       "flashSale": false,
       "promotionId": null,
       "stockAvailable": 120,
-      "recordedDate": "2026-03-12",
-      "recordedTime": "2026-03-12 07:39:03"
+      "recordedDate": "2026-08-08",
+      "recordedTime": "2026-08-08 07:39:03"
     }
   }
 }
@@ -176,21 +178,21 @@ item_id=1589295236
 | `itemId` | number | Shopee product ID. |
 | `productName` | string | Product name. |
 | `shopName` | string | Shop name. |
-| `price` | number | Current price in VND. |
+| `price` | number | Current price in cents (MYR). |
 | `sales` | number | Historical sold count. |
 | `imageUrl` | string | Main image URL. |
 | `productLink` | string | Shopee product URL. |
 | `rating` | string/number | Star rating. |
-| `commission` | number | Total commission after tax and the user's rate, in VND. |
+| `commission` | number | Total commission after tax and the user's rate, in cents (MYR). |
 | `sellerComFinal` | number | Seller commission after the user's rate and tax. |
-| `shopeeComFinal` | number | Shopee commission after the VND 50,000 cap and 4.5% limit. |
+| `shopeeComFinal` | number | Shopee commission after the RM5-per-order cap and the applicable percentage limit. |
 | `isXtra` | boolean | Whether the product participates in Xtra seller commission. |
 | `hasSellerCommission` | boolean | Whether seller commission is available. |
 | `hasShopeeCommission` | boolean | Whether Shopee commission is available. |
 | `isCapped` | boolean | Whether Shopee commission reached its cap. |
 | `isLimitCap` | boolean | Alias of `isCapped`. |
 | `cap` | number | Applied commission cap after the user's rate. |
-| `capRaw` | number | Original VND 50,000 cap. |
+| `capRaw` | number | Original RM5 cap (500 cents). |
 | `capAfterRate` | number | Cap after applying the user's rate. |
 | `lastUpdate` | string | Data update date and time. |
 | `dataSource` | string | `api` for fresh Shopee data, `db` for cached data, or `fallback` for limited data. |
@@ -199,11 +201,11 @@ item_id=1589295236
 
 ### `priceStats` fields
 
-`currentPrice`, `minPrice`, `maxPrice`, and `avgPrice` are VND values. `priceChange7d` and `priceChange30d` are price changes in VND. `lastPriceUpdate`, `lowestPriceDate`, and `highestPriceDate` are dates and may be `null`.
+`currentPrice`, `minPrice`, `maxPrice`, and `avgPrice` are values in cents (MYR). `priceChange7d` and `priceChange30d` are price changes in cents (MYR). `lastPriceUpdate`, `lowestPriceDate`, and `highestPriceDate` are dates and may be `null`.
 
 ### `latestPriceHistory` fields
 
-This object provides `price`, `originalPrice`, `discountPercent`, `currency`, `flashSale`, `promotionId`, `stockAvailable`, `recordedDate`, and `recordedTime`. Values unavailable in the database may be `null`; `currency` defaults to `VND`.
+This object provides `price`, `originalPrice`, `discountPercent`, `currency`, `flashSale`, `promotionId`, `stockAvailable`, `recordedDate`, and `recordedTime`. Values unavailable in the database may be `null`; `currency` defaults to `MYR`.
 
 ### Cache and fallback behavior
 
@@ -250,9 +252,9 @@ Product and commission data is stored for approximately 24 hours (`CACHE_DURATIO
 
 ## Commission calculation
 
-- **Seller commission:** No cap; the seller rate, user rate, and tax are applied.
-- **Shopee commission:** Capped at VND 50,000 before the user rate and limited to 4.5% of the product price. The lower applicable value is used.
-- `commission = sellerComFinal + shopeeComFinal`, in VND.
+- **Seller commission (Commission XTRA):** No cap; the seller rate, user rate, and tax are applied.
+- **Shopee commission:** Capped at RM5 per order (500 cents) before the user rate, per Shopee Malaysia's affiliate commission terms; any applicable percentage limit of the product price also applies. The lower applicable value is used. Check the [Shopee Malaysia Help Center](https://help.shopee.com.my/portal/10/article/124012) for the current cap.
+- `commission = sellerComFinal + shopeeComFinal`, in cents (MYR).
 
 ## CORS preflight
 
@@ -267,4 +269,4 @@ Product and commission data is stored for approximately 24 hours (`CACHE_DURATIO
 | Query/body | Numeric `item_id` **or** Shopee `url` |
 | Response | JSON with `status` plus `productInfo`, or `message` on error |
 | Rate limit | 300/minute (API), 2,000/minute (database), per IP |
-| Time zone | Asia/Ho_Chi_Minh for `lastUpdate` |
+| Time zone | Asia/Kuala_Lumpur for `lastUpdate` |
