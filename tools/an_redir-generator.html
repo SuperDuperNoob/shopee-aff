@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopee Affiliate Link Generator — No AppID Needed (an_redir)</title>
+<style>
+  :root { --orange:#ee4d2d; --bg:#f9f9f9; --card:#fff; --muted:#666; --ok:#0a7f2e; --warn:#856404; }
+  *{box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:24px 16px;background:var(--bg);color:#222}
+  h1{color:var(--orange);font-size:1.5rem;margin:0 0 6px;text-align:center}
+  .subtitle{text-align:center;color:var(--muted);font-size:0.95rem;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid #e5e5e5;border-radius:12px;padding:16px 16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:16px}
+  .note{background:#fff3cd;color:var(--warn);border:1px solid #ffe69c;padding:10px 12px;border-radius:8px;font-size:0.88rem;margin-bottom:16px}
+  .note a{color:var(--warn);text-decoration:underline}
+  label{display:block;font-weight:600;margin:12px 0 6px;font-size:0.92rem}
+  .hint{font-weight:400;color:var(--muted);font-size:0.82rem;margin-top:3px}
+  input,select{width:100%;padding:10px 11px;font-size:15px;border:1px solid #d9d9d9;border-radius:8px;background:#fff}
+  input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(238,77,45,.15)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:560px){ .grid{grid-template-columns:1fr} }
+  .row{display:flex;gap:10px;align-items:center}
+  button{cursor:pointer;border:none;border-radius:8px;font-weight:700}
+  .generate{width:100%;padding:13px 14px;background:var(--orange);color:#fff;font-size:16px;margin-top:14px}
+  .generate:hover{background:#dd3c1a}
+  .generate:disabled{background:#f8aa9a;cursor:not-allowed}
+  .out{margin-top:14px}
+  .out-label{font-weight:700;margin-bottom:6px;font-size:0.9rem}
+  textarea{width:100%;min-height:92px;padding:10px 11px;border:1px solid #d9d9d9;border-radius:8px;font-size:13px;resize:vertical;background:#fcfcfc}
+  .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .actions button{padding:9px 12px;font-size:14px}
+  .copy{background:#333;color:#fff}
+  .open{background:#fff;color:#333;border:1px solid #d9d9d9}
+  .small{font-size:0.85rem;color:var(--muted);margin-top:10px;text-align:center}
+  .badge{display:inline-block;background:#eee;border-radius:999px;padding:2px 8px;font-size:0.75rem;color:#555}
+  .status{font-size:0.88rem;margin-top:8px}
+  .status.ok{color:var(--ok)}
+  .status.err{color:#c00020}
+  .loader{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin 0.9s linear infinite;vertical-align:-3px;margin-right:6px}
+  .loader.dark{border-color:rgba(0,0,0,.15);border-top-color:#333}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  details{margin-top:12px}
+  details summary{cursor:pointer;color:#444;font-weight:600}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.82rem;background:#f5f5f5;padding:8px 10px;border-radius:8px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+  .hr{border:none;border-top:1px solid #eee;margin:14px 0}
+  a{color:var(--orange)}
+</style>
+</head>
+<body>
+<h1>Shopee Affiliate Link Generator</h1>
+<p class="subtitle">No AppID / Secret needed — builds official <code>an_redir</code> link from your <span class="badge">affiliate_id</span></p>
+
+<div class="note">
+  <strong>Official method.</strong> This uses Shopee's documented <code>https://&lt;domain&gt;/an_redir?origin_link=&lt;ENCODED&gt;&amp;affiliate_id=&lt;ID&gt;&amp;sub_id=&lt;...&gt;</code> — same tracking as <code>shp.ee</code> via API, but generated locally.
+  See <a href="../docs/without-appid-workarounds.md" target="_blank">without-appid-workarounds.md</a> for research &amp; alternatives (Involve Asia, dashboard, etc.).
+</div>
+
+<div class="card">
+  <label for="affiliateId">Affiliate ID <span class="hint">— numeric ID from affiliate dashboard (e.g. 14382300002). Stored locally only.</span></label>
+  <input id="affiliateId" type="text" inputmode="numeric" placeholder="e.g. 14382300002" autocomplete="off">
+  <div class="hint" style="margin-top:4px">Find it: Affiliate Portal → Custom Link → generate one link → copy <code>affiliate_id=</code> value. Never commit it to Git.</div>
+
+  <label for="inputLink">Shopee Product / Shop / Page URL <span class="hint">— full URL or short link (s.shopee.vn/...)</span></label>
+  <input id="inputLink" type="url" placeholder="https://shopee.vn/product/38003654/1589295236">
+  <div class="row" style="margin-top:8px">
+    <label style="margin:0"><input id="chkExpand" type="checkbox" checked> auto-expand short links</label>
+    <span style="flex:1"></span>
+    <label for="domain" style="margin:0">Redirect domain:</label>
+    <select id="domain" style="width:auto;min-width:180px">
+      <option value="https://shope.ee">https://shope.ee (global, recommended)</option>
+      <option value="https://s.shopee.vn">https://s.shopee.vn (VN)</option>
+      <option value="https://s.shopee.sg">https://s.shopee.sg (SG)</option>
+      <option value="https://s.shopee.com.my">https://s.shopee.com.my (MY)</option>
+      <option value="https://s.shopee.ph">https://s.shopee.ph (PH)</option>
+      <option value="https://s.shopee.co.id">https://s.shopee.co.id (ID)</option>
+      <option value="https://s.shopee.co.th">https://s.shopee.co.th (TH)</option>
+      <option value="https://s.shopee.com.br">https://s.shopee.com.br (BR)</option>
+    </select>
+  </div>
+
+  <div class="grid">
+    <div>
+      <label for="sub1">Sub_id1 <span class="hint">e.g. tiktok</span></label>
+      <input id="sub1" type="text" placeholder="tiktok" maxlength="64">
+    </div>
+    <div>
+      <label for="sub2">Sub_id2 <span class="hint">e.g. video42</span></label>
+      <input id="sub2" type="text" placeholder="video42" maxlength="64">
+    </div>
+    <div>
+      <label for="sub3">Sub_id3</label>
+      <input id="sub3" type="text" placeholder="campaign" maxlength="64">
+    </div>
+    <div>
+      <label for="sub4">Sub_id4 <span class="hint">auto = affiliate fingerprint if empty</span></label>
+      <input id="sub4" type="text" placeholder="optional" maxlength="64">
+    </div>
+    <div style="grid-column:1/-1">
+      <label for="sub5">Sub_id5 <span class="hint">auto = timestamp if empty (leave blank unless you need custom)</span></label>
+      <input id="sub5" type="text" placeholder="optional" maxlength="64">
+    </div>
+  </div>
+
+  <button class="generate" id="generateBtn" onclick="generateLink()">Generate Affiliate Link</button>
+  <div id="status" class="status" aria-live="polite"></div>
+
+  <div class="out">
+    <div class="out-label">Affiliate Link → <span class="hint">share this; Shopee adds <code>uls_trackid</code> on click</span></div>
+    <textarea id="resultLink" readonly placeholder="Your link will appear here"></textarea>
+    <div class="actions">
+      <button class="copy" onclick="copyLink()">Copy to Clipboard</button>
+      <button class="open" onclick="openLink()">Open in New Tab</button>
+      <button class="open" onclick="testLink()" title="Open and check redirect lands on product">Test Redirect</button>
+    </div>
+    <p class="small" id="copyStatus"></p>
+  </div>
+
+  <details>
+    <summary>Show encoding details</summary>
+    <div class="hint">Use this to debug mismatches:</div>
+    <div id="detailsBox" class="mono" style="margin-top:8px; display:none"></div>
+  </details>
+
+  <hr class="hr">
+  <p class="small" style="text-align:left">
+    <strong>No server.</strong> All work happens in your browser. Your <code>affiliate_id</code> is saved to <code>localStorage</code> only on this device.<br>
+    <strong>Need scale?</strong> Use the CLI: <code>node tools/generate-anredir-link.js --affiliate-id ... --url ... --sub-id ...</code><br>
+    <strong>Alternatives without any Shopee account:</strong> see Involve Asia / ACCESSTRADE route in the guide.
+  </p>
+</div>
+
+<div class="card">
+  <strong>How to verify</strong>
+  <ol style="margin:8px 0 0 18px; font-size:0.9rem; line-height:1.6">
+    <li>Paste <em>one</em> product URL + your <code>affiliate_id</code> → Generate.</li>
+    <li>Open the result in an <em>incognito window</em> — you should land on the product.</li>
+    <li>Wait 15–30 min → Affiliate dashboard → Analytics / Conversion Report → filter by <code>sub_id</code> → click should appear.</li>
+    <li>For a second product, change only <code>Sub_id</code> to track channel performance.</li>
+  </ol>
+  <p class="small" style="text-align:left; margin-top:8px">If clicks don't appear, check that your <code>affiliate_id</code> is for the same market (VN vs SG etc.) as the product URL, and that the account is active.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const LS_KEY = 'shopee_affiliate_id';
+const enc = encodeURIComponent;
+const dec = decodeURIComponent;
+
+// restore affiliate_id
+try { const v = localStorage.getItem(LS_KEY); if (v) $('affiliateId').value = v; } catch {}
+$('affiliateId').addEventListener('change', () => {
+  try { localStorage.setItem(LS_KEY, $('affiliateId').value.trim()); } catch {}
+});
+
+function sanitizeSub(s) {
+  return s.trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0,64);
+}
+function getCleanUrl(url) {
+  let u = url.trim();
+  if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+  try {
+    const parsed = new URL(u);
+    // Drop known stale trackers — we recreate ours
+    for (const k of ['sp_atk','xptdk','uls_trackid','smtt','utm_source','utm_medium','utm_campaign','utm_content','utm_term','af_siteid','af_sub_siteid']) {
+      parsed.searchParams.delete(k);
+    }
+    parsed.hash = '';
+    return parsed.toString();
+  } catch {
+    return u.split('#')[0];
+  }
+}
+function getOriginForEncoding(clean) {
+  // For product pages keep query if any non-tracker params remain; else keep path-only
+  // Simpler: if clean has ? keep it, else drop trailing ?
+  return clean.split('#')[0];
+}
+
+async function expandLink(url) {
+  // Try HEAD follow; fallback to GET. Requires same-origin or CORS-allowed.
+  // On static hosts (GitHub Pages etc.) this may be blocked — we degrade gracefully.
+  try {
+    // Prefer relative proxy if deployed with api/expand.js (Vercel style)
+    const proxied = `/api/expand?url=${enc(url)}`;
+    // Try proxy first if we are on a host that might have it; quick timeout
+    try {
+      const r = await fetch(proxied, { method:'GET' });
+      if (r.ok) {
+        const j = await r.json();
+        if (j.expandedUrl) return j.expandedUrl;
+      }
+    } catch {}
+    // Direct fetch (may fail CORS, but worth trying)
+    const r2 = await fetch(url, { method:'HEAD', redirect:'follow' });
+    if (r2.url && r2.url !== url) return r2.url;
+    const r3 = await fetch(url, { method:'GET', redirect:'follow' });
+    if (r3.url) return r3.url;
+    return url;
+  } catch (e) {
+    console.warn('expand failed', e);
+    return url;
+  }
+}
+
+async function generateLink() {
+  const affiliateId = $('affiliateId').value.trim();
+  const input = $('inputLink').value.trim();
+  const domain = $('domain').value;
+  const subs = [ $('sub1').value, $('sub2').value, $('sub3').value, $('sub4').value, $('sub5').value ].map(sanitizeSub).filter(Boolean).slice(0,5);
+  const resultArea = $('resultLink');
+  const status = $('status');
+  const btn = $('generateBtn');
+  const detailsBox = $('detailsBox');
+
+  if (!affiliateId || !input) {
+    alert('Please fill Affiliate ID and Product Link.');
+    return;
+  }
+  if (!/^[0-9]{6,20}$/.test(affiliateId)) {
+    if (!confirm(`Affiliate ID "${affiliateId}" doesn't look numeric (6-20 digits). Continue anyway?`)) return;
+  }
+  try { localStorage.setItem(LS_KEY, affiliateId); } catch {}
+
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Processing...';
+  status.textContent = '';
+  status.className = 'status';
+
+  try {
+    let finalUrl = input;
+    const wantExpand = $('chkExpand').checked;
+    const isShort = input.includes('s.shopee.') || (input.includes('shope.ee/') && !input.includes('/an_redir'));
+    if (wantExpand && isShort) {
+      status.textContent = 'Expanding short link...';
+      finalUrl = await expandLink(input);
+      if (finalUrl === input) status.textContent = 'Expand skipped (CORS/proxy unavailable) — using original. If it’s short, expand manually or use CLI --expand.';
+      else status.textContent = `Expanded → ${finalUrl}`;
+    }
+
+    // Clean
+    let clean = getCleanUrl(finalUrl);
+    // For product pages, Shopee routing ignores query, so we keep only what remains after stripping trackers.
+    // If clean ends with ? remove
+    clean = clean.replace(/\?$/, '');
+    const toEncode = getOriginForEncoding(clean);
+    const encoded = enc(toEncode);
+    const sub = subs.join('-');
+    const prefix = domain.replace(/\/$/,'') + '/an_redir?origin_link=';
+    const affParam = '&affiliate_id=' + enc(affiliateId);
+    const subParam = sub ? '&sub_id=' + enc(sub) : '';
+    const finalLink = prefix + encoded + affParam + subParam;
+
+    resultArea.value = finalLink;
+    status.textContent = isShort && finalUrl !== input ? `✓ Expanded & generated.` : `✓ Generated.`;
+    status.className = 'status ok';
+    $('copyStatus').textContent = '';
+
+    // details
+    detailsBox.style.display = 'block';
+    detailsBox.textContent =
+      `input:        ${input}\n` +
+      (finalUrl !== input ? `expanded:     ${finalUrl}\n` : '') +
+      `cleaned:      ${clean}\n` +
+      `toEncode:     ${toEncode}\n` +
+      `encoded:      ${encoded}\n` +
+      `affiliate_id: ${affiliateId}\n` +
+      `sub_id:       ${sub || '(none)'}\n` +
+      `domain:       ${domain}\n` +
+      `finalLink:    ${finalLink}\n` +
+      `\nDecode check:  ${dec(encoded)}\n`;
+
+    // Persist last sub config maybe
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Error: ' + (err.message||String(err));
+    status.className = 'status err';
+  } finally {
+    btn.innerHTML = original;
+    btn.disabled = false;
+  }
+}
+
+async function copyLink() {
+  const v = $('resultLink').value;
+  const s = $('copyStatus');
+  if (!v) { alert('Generate a link first.'); return; }
+  try {
+    await navigator.clipboard.writeText(v);
+    s.textContent = '✅ Copied to clipboard';
+    s.style.color = '#0a7f2e';
+  } catch {
+    // fallback
+    $('resultLink').select();
+    try { document.execCommand('copy'); s.textContent='✅ Copied (fallback)'; s.style.color='#0a7f2e'; }
+    catch { s.textContent='❌ Copy failed — select manually'; s.style.color='#c00020'; }
+  }
+}
+function openLink() {
+  const v = $('resultLink').value;
+  if (!v) { alert('Generate first.'); return; }
+  window.open(v, '_blank', 'noopener');
+}
+async function testLink() {
+  const v = $('resultLink').value;
+  if (!v) { alert('Generate first.'); return; }
+  // We can't fetch cross-origin an_redir and read effective URL due to CORS, but we open.
+  window.open(v, '_blank', 'noopener');
+  $('copyStatus').textContent = 'Opened — check if you land on the product. Analytics click appears in ~15–30 min.';
+  $('copyStatus').style.color = '#666';
+}
+
+// convenience: generate on Enter
+$('inputLink').addEventListener('keydown', e=> { if(e.key==='Enter') generateLink(); });
+$('affiliateId').addEventListener('keydown', e=> { if(e.key==='Enter') generateLink(); });
+</script>
+</body>
+</html>

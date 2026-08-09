@@ -379,8 +379,16 @@ cd bc-custom-link && php -S 0.0.0.0:8000
 - `tools/trace-signature.js` — Interactive tracer for auth flow, no network call
 - `tools/security-scan.sh` — Quick grep-based security scanner
 - `tools/re-graph.sh` — Generates file dependency list + mermaid
+- `tools/generate-anredir-link.js` — `an_redir` link builder — no AppID/secret, only `affiliate_id` (see `docs/without-appid-workarounds.md`)
+- `tools/an_redir-generator.html` — Offline browser generator for the same (open directly, no server)
 
 Run `node tools/re-analyzer.js` after any change to refresh mental model.
+Try the no-credentials path without any API keys:
+
+```bash
+node tools/generate-anredir-link.js --affiliate-id 14382300002 --url https://shopee.vn/product/38003654/1589295236 --sub-id tiktok
+open tools/an_redir-generator.html  # or python3 -m http.server 8000 --directory tools
+```
 
 ---
 

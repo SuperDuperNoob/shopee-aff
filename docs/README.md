@@ -2,6 +2,7 @@
 
 - [Main README](../README.md) — Official API spec
 - [Product Data API](../product-data-api.md) — Unofficial API spec
+- [Without AppID Workarounds](without-appid-workarounds.md) — **No `appId`/`secret`? Start here** (`an_redir`, dashboard, Involve/AT)
 - [Reverse Engineering Guide](../REVERSE_ENGINEERING.md) — **Start here to understand repo internals**
 - [Reverse Engineering Deep Dives](./reverse-engineering/) — Modular breakdowns
   - [01 Repo Map](./reverse-engineering/01-repo-map.md)
@@ -19,6 +20,8 @@ All in `../tools/`:
 - `trace-signature.js` — trace SHA256 auth construction
 - `security-scan.sh` — quick grep audit
 - `re-graph.sh` — file tree + LOC + deps
+- `generate-anredir-link.js` — `an_redir` link builder (no credentials, only affiliate_id)
+- `an_redir-generator.html` — offline browser generator for the same (open directly)
 
 Run:
 
@@ -27,4 +30,8 @@ node tools/re-analyzer.js
 node tools/trace-signature.js --appId 123 --secret demo
 bash tools/security-scan.sh
 bash tools/re-graph.sh
+
+# no credentials needed — only affiliate_id:
+node tools/generate-anredir-link.js --affiliate-id 14382300002 --url https://shopee.vn/product/38003654/1589295236 --sub-id tiktok
+# then open tools/an_redir-generator.html in a browser
 ```

@@ -5,6 +5,8 @@
 **Official source:** <https://affiliate.shopee.vn/open_api/list>
 
 > **New:** Want to understand how this repo works internally? See [Reverse Engineering Guide](REVERSE_ENGINEERING.md) — includes auto-analysis tools (`tools/re-analyzer.js`), auth-flow tracer (`tools/trace-signature.js`), security scanner, and deep dives in `docs/reverse-engineering/`.
+>
+> **No AppID / Secret?** → See [**Without AppID Workarounds**](docs/without-appid-workarounds.md) — `an_redir` tracker (no API, only `affiliate_id`), dashboard Custom Link, Involve Asia / ACCESSTRADE, plus a no-server generator at `tools/an_redir-generator.html` and CLI `tools/generate-anredir-link.js`.
 
 ## Contents
 
@@ -45,6 +47,12 @@ Before using these APIs, you need:
 2. An **`app_id` and `secret_key`**, issued by Shopee and used to authenticate API requests.
 3. An **`access_token`** for APIs that require access to an individual account.
 4. A **`signature`**, generated from the `secret_key` and request parameters.
+
+> **Don't have `app_id` / `secret`?** You can still generate valid affiliate links:
+> - **Recommended:** `an_redir` method — only your `affiliate_id` (from the same dashboard) is needed. See [**Workarounds**](docs/without-appid-workarounds.md) + try the offline generator [`tools/an_redir-generator.html`](tools/an_redir-generator.html) or CLI `node tools/generate-anredir-link.js --affiliate-id 14382300002 --url https://shopee.vn/product/38003654/1589295236`.
+> - **Network route:** join Shopee via Involve Asia / ACCESSTRADE and use their deeplink generator — no Shopee Open API approval needed.
+> - **Manual:** Affiliate Portal → **Custom Link / Convert Link** (paste URL → Get Link), or Shopee app → share arrow → Copy Link while logged in as affiliate.
+> The GraphQL APIs on this page still require L2 approval, but the workarounds above use officially documented `an_redir` and dashboard paths and earn the same commission.
 
 ## API endpoints
 

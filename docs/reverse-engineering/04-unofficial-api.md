@@ -109,6 +109,14 @@ If you want to rebuild product-data.php from scratch:
 4. **Rate limiting**: use Redis `INCR` per IP with window, return 429 with `Retry-After`.
 5. **Cache headers**: `Cache-Control: public, max-age=3600` for DB hits.
 
+## Without AppID? Use this with `an_redir`
+
+If you have no Open API credentials, pair this unofficial data API with the official `an_redir` tracker (needs only `affiliate_id`):
+
+- Fetch product/commission via `data.addlivetag.com` (this doc)
+- Build link via `https://shope.ee/an_redir?origin_link={ENCODED}&affiliate_id={ID}` (see `docs/without-appid-workarounds.md`, `tools/an_redir-generator.html`, `Code/no-api/an_redir.php`)
+- Together they replace `productOfferV2` + `generateShortLink` for display + linking without L2.
+
 ## Ethical note
 
 Shopee's `/api/v4/` is not public. Use sparingly, cache aggressively, respect robots.txt and TOS. This doc's author already warns short-link server is under load — same will happen to your clone if you don't rate-limit.
