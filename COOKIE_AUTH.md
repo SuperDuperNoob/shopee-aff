@@ -182,6 +182,34 @@ Use **cookies** when:
 
 > Cookies do **not** replace the signature for the official `open-api.affiliate.shopee.com.my/graphql` endpoint — that endpoint still requires credential auth. Cookies are for Shopee's **web** endpoints.
 
+### 6.1 Generating affiliate short links with a cookie (portal web API)
+
+The affiliate portal's browser UI (`affiliate.shopee.com.my` → generate short link)
+creates affiliate links — **with subIDs** — through an internal web API using
+your logged-in session. This repo can replay that request with your cookie:
+
+1. **Capture once:** log in, generate a short link with a subID in the UI,
+   DevTools → Network → right-click the request → Copy as cURL (bash).
+2. **Build a template:**
+
+   ```bash
+   node tools/trace-portal-link.js --capture '<pasted cURL>' --out portal-link.template.json
+   ```
+
+3. **Replay / use in the samples:**
+
+   ```bash
+   node tools/trace-portal-link.js --replay --template portal-link.template.json \
+     --url 'https://shopee.com.my/product/334425154/8200081234' --subid campaign1
+
+   # or via the samples (cookie mode, no credentials):
+   cd Code/nodejs && node index.js shortLink "https://shopee.com.my/product/334425154/8200081234" campaign1
+   ```
+
+The template stores `{{cookie}}`/`{{csrfToken}}` placeholders (never your actual
+session). Session expiry, CSRF rotation, and anti-bot behavior all apply —
+see the [full walkthrough](docs/reverse-engineering/06-portal-short-link.md).
+
 ---
 
 ## 7. Keeping it fresh (expiry & refresh)

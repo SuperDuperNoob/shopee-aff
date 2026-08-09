@@ -1,0 +1,15 @@
+{
+  "_comment": "Request template for the affiliate portal's internal short-link API (cookie mode). Replace the placeholder URL with the real endpoint captured from your own browser: DevTools -> Network -> generate a short link with a subID -> Copy as cURL -> run: node tools/trace-portal-link.js --capture '<cURL>' --out portal-link.template.json. Placeholders: {{originUrl}} (Shopee URL to shorten), {{subIds}} (JSON array, up to 5), {{subIdsCsv}} (comma list), {{cookie}} (SHOPEE_COOKIE), {{csrfToken}} (SHOPEE_CSRF_TOKEN). See docs/reverse-engineering/06-portal-short-link.md.",
+  "name": "portal-short-link",
+  "method": "POST",
+  "url": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+  "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Origin": "https://affiliate.shopee.com.my",
+    "Referer": "https://affiliate.shopee.com.my/",
+    "X-CSRFToken": "{{csrfToken}}",
+    "Cookie": "{{cookie}}"
+  },
+  "body": "{\"originUrl\":\"{{originUrl}}\",\"subIds\":{{subIds}}}"
+}

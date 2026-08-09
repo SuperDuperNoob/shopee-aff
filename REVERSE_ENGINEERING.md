@@ -24,6 +24,11 @@ shopee-aff/
 └── 3. Unofficial Product Data API Docs (product-data-api.md + Postman/)
     └── Docs for https://data.addlivetag.com/product-data/product-data.php
     └── Caching layer (24h), rate-limiting, fallback behavior
+
+4. Portal Web API — cookie-mode short links (tools/trace-portal-link.js + Code/*)
+    └── Replays the affiliate portal's internal short-link API with your SPC_F cookie
+    └── {{originUrl}}/{{subIds}} template -> node/php `shortLink` subcommand (no Open API creds)
+    └── Deep dive: docs/reverse-engineering/06-portal-short-link.md
 ```
 
 **Total code surface: ~531 LOC PHP/JS** + 2 markdown specs. Very small, very auditable.
@@ -344,6 +349,7 @@ sequenceDiagram
 - Add OpenAPI spec for unofficial API based on docs
 - Add unit test for `removeParam` — currently regex vulnerable to param injection with regex metachars (though `preg_quote` helps)
 - Add TypeScript types for conversionReport / validatedReport
+- **Done:** cookie-mode short-link generation via the portal web API — `tools/trace-portal-link.js` + `shortLink` subcommand in both samples (see `docs/reverse-engineering/06-portal-short-link.md`). Next level: auto-refresh the portal template when anti-bot headers rotate, or a headless-browser fallback for CAPTCHA cases.
 
 ---
 
@@ -377,6 +383,7 @@ cd bc-custom-link && php -S 0.0.0.0:8000
 
 - `tools/re-analyzer.js` — Parses all PHP/JS, extracts functions, endpoints, secrets patterns, outputs JSON + markdown report to `docs/reverse-engineering/auto-report.md`
 - `tools/trace-signature.js` — Interactive tracer for auth flow, no network call
+- `tools/trace-portal-link.js` — Capture & replay the affiliate portal's internal short-link API: turns a DevTools "Copy as cURL" into a reusable `{{originUrl}}`/`{{subIds}}` template, then dry-runs/replays it with your `SPC_F` cookie (no Open API creds). Deep dive: `docs/reverse-engineering/06-portal-short-link.md`
 - `tools/security-scan.sh` — Quick grep-based security scanner
 - `tools/re-graph.sh` — Generates file dependency list + mermaid
 

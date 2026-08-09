@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-08-09T03:28:13.677Z",
+  "generatedAt": "2026-08-09T04:12:39.939Z",
   "root": "/home/user/shopee-aff",
-  "totalFiles": 26,
+  "totalFiles": 30,
   "hosts": [
-    "https://open-api.affiliate.shopee.com.my/graphql`.",
-    "https://shopee.com.my/product/334425154/8200081234",
-    "https://open-api.affiliate.shopee.com.my/graphql",
+    "https://open-api.affiliate.shopee.com.my/graphql`",
+    "https://shopee.com.my/api/v4/...`",
     "https://shopee.com.my",
+    "https://shopee.com.my/api/v4/pdp/get_pc?shop_id=334425154&item_id=8200081234",
+    "https://shopee.com.my/",
+    "https://shopee.com.my/api/v4/example/write",
+    "https://shopee.com.my/api/v4/pdp/get_pc?item_id=8200081234&shop_id=334425154",
+    "https://shopee.com.my/api/v4/pdp/get_pc?item_id=...&shop_id=...`",
+    "https://shopee.com.my/product/334425154/8200081234",
+    "https://open-api.affiliate.shopee.com.my/graphql`.",
+    "https://shopee.com.my/api/v4/pdp/get_pc`",
+    "https://open-api.affiliate.shopee.com.my/graphql",
+    "https://shopee.com.my/api/v4/pdp/get_pc",
+    "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+    "https://affiliate.shopee.com.my",
+    "https://affiliate.shopee.com.my/",
+    "https://affiliate.shopee.com.my/api/v1/short_link",
+    "https://shopee.com.my/product/1/2",
+    "https://shopee.com.my/p",
+    "https://affiliate.shopee.com.my/api/v1/real",
     "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "https://data.addlivetag.com/product-data/product-data.php",
     "https://affiliate.shopee.com.my/open_api/list>",
     "https://addlivetag.com/shopee-affiliate-api/index.php>",
     "https://addlivetag.com/>",
-    "https://affiliate.shopee.com.my/",
     "https://open.shopee.com.my/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
     "https://shopee.com.my/product/334425154/8200081234\\",
     "https://shope.ee/5XyZ7WqR",
@@ -20,7 +35,6 @@
     "https://shopee.com.my/product/334425154/8200081234&Sub_id1=MyTest",
     "https://shopee.com.my/api/v4/item/get?itemid=xxx&shopid=yyy",
     "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
-    "https://shopee.com.my/",
     "https://s.shopee.com.my/6VCtHgpohc",
     "https://evil.com",
     "https://shopee.com.my.evil.com",
@@ -36,15 +50,13 @@
     "https://affiliate.shopee.com.my/open_api",
     "https://shp.ee/...`",
     "https://data.addlivetag.com/product-data/product-data.php`",
-    "https://open-api.affiliate.shopee.com.my/graphql`",
     "https://shp.ee/...",
     "https://shopee.com.my.evil.com/product/1/1`",
     "https://shopee.com.my/product/1/1?sp_atk=evil&xptdk=evil`",
     "https://data.addlivetag.com/product-data/product-data.php`,",
     "https://affiliate.shopee.com.my/api/...`",
-    "https://shopee.com.my/api/v4/pdp/get_pc`",
     "https://shopee.com.my/product/<shopId>/<itemId>`",
-    "https://shopee.com.my/api/v4/pdp/get_pc?shop_id=334425154&item_id=8200081234",
+    "https://shp.ee/abc123",
     "https://shopee.com.my/product/<shop_id>/<item_id>`",
     "https://data.addlivetag.com/product-data/product-data.php?item_id=8200081234",
     "https://data.addlivetag.com/product-data/product-data.php?url=https://shopee.com.my/product/334425154/8200081234",
@@ -79,7 +91,43 @@
     },
     {
       "file": "Code/nodejs/index.js",
+      "fn": "buildWebHeaders"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "applyTemplate"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "isPlaceholderUrl"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "loadPortalTemplate"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "callShopeeWebShortLink"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "cookieModeArgs"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "callShopeeWebApi"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "callShopeeGraphql"
+    },
+    {
+      "file": "Code/nodejs/index.js",
       "fn": "callShopeeApi"
+    },
+    {
+      "file": "Code/nodejs/index.js",
+      "fn": "sub"
     },
     {
       "file": "Code/php/index.php",
@@ -92,6 +140,30 @@
     {
       "file": "Code/php/index.php",
       "fn": "callShopeeApi"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "buildWebHeaders"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "applyTemplate"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "isPlaceholderUrl"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "loadPortalTemplate"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "callShopeeWebShortLink"
+    },
+    {
+      "file": "Code/php/index.php",
+      "fn": "callShopeeWebApi"
     },
     {
       "file": "REVERSE_ENGINEERING.md",
@@ -178,6 +250,78 @@
       "fn": "main"
     },
     {
+      "file": "tools/trace-portal-link.js",
+      "fn": "tokenizeCurl"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "parseCurl"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "redactHeader"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "redactBody"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "findShopeeUrls"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "buildTemplateFromCapture"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "applyTemplate"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "isPlaceholderUrl"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "sendRequest"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "printRequest"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "readTemplate"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "printUsage"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "parseArgs"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "main"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "next"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "sub"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "redact"
+    },
+    {
+      "file": "tools/trace-portal-link.js",
+      "fn": "subIds"
+    },
+    {
       "file": "tools/trace-signature.js",
       "fn": "parseArgs"
     },
@@ -192,34 +336,219 @@
   ],
   "files": [
     {
+      "path": "COOKIE_AUTH.md",
+      "lines": 248,
+      "functions": [],
+      "matches": {
+        "authSig": [
+          {
+            "match": "Credential",
+            "line": 11
+          },
+          {
+            "match": "SHA256",
+            "line": 15
+          },
+          {
+            "match": "Credential",
+            "line": 15
+          },
+          {
+            "match": "Timestamp",
+            "line": 15
+          },
+          {
+            "match": "Signature",
+            "line": 15
+          },
+          {
+            "match": "Signature",
+            "line": 16
+          },
+          {
+            "match": "Credential",
+            "line": 140
+          }
+        ],
+        "externalHost": [
+          {
+            "match": "https://open-api.affiliate.shopee.com.my/graphql`",
+            "line": 14
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/...`",
+            "line": 14
+          },
+          {
+            "match": "https://shopee.com.my",
+            "line": 60
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc?shop_id=334425154&item_id=8200081234",
+            "line": 78
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 81
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/example/write",
+            "line": 88
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 92
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 103
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc?item_id=8200081234&shop_id=334425154",
+            "line": 108
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc?item_id=8200081234&shop_id=334425154",
+            "line": 118
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 124
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc?item_id=...&shop_id=...`",
+            "line": 165
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 203
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 206
+          }
+        ],
+        "curl": [
+          {
+            "match": "fetch(",
+            "line": 107
+          },
+          {
+            "match": "curl_init",
+            "line": 118
+          },
+          {
+            "match": "curl_setopt_array",
+            "line": 119
+          },
+          {
+            "match": "curl_exec",
+            "line": 128
+          }
+        ],
+        "dotEnv": [
+          {
+            "match": "SHOPEE_API",
+            "line": 21
+          },
+          {
+            "match": "APP_ID",
+            "line": 21
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 21
+          },
+          {
+            "match": "SECRET",
+            "line": 21
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 135
+          },
+          {
+            "match": "APP_ID",
+            "line": 135
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 135
+          },
+          {
+            "match": "SECRET",
+            "line": 135
+          },
+          {
+            "match": ".env",
+            "line": 135
+          },
+          {
+            "match": ".env",
+            "line": 136
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 141
+          },
+          {
+            "match": "APP_ID",
+            "line": 141
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 142
+          },
+          {
+            "match": "SECRET",
+            "line": 142
+          },
+          {
+            "match": ".env",
+            "line": 238
+          },
+          {
+            "match": ".env",
+            "line": 238
+          }
+        ]
+      }
+    },
+    {
       "path": "Code/README.md",
-      "lines": 22,
+      "lines": 23,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 21
+            "line": 22
           },
           {
             "match": "brandOfferV2",
-            "line": 21
+            "line": 22
           },
           {
             "match": "productOfferV2",
-            "line": 21
+            "line": 22
           },
           {
             "match": "generateShortLink",
-            "line": 21
+            "line": 22
           },
           {
             "match": "conversionReportV2",
-            "line": 21
+            "line": 22
           },
           {
             "match": "validationReportV2",
-            "line": 21
+            "line": 22
+          }
+        ],
+        "authSig": [
+          {
+            "match": "Credential",
+            "line": 13
           }
         ],
         "dotEnv": [
@@ -241,74 +570,86 @@
           },
           {
             "match": "SHOPEE_API",
-            "line": 14
+            "line": 13
           },
           {
             "match": "SECRET",
-            "line": 14
+            "line": 13
           }
         ]
       }
     },
     {
       "path": "Code/nodejs/README.md",
-      "lines": 49,
+      "lines": 94,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 26
+            "line": 66
           },
           {
             "match": "brandOfferV2",
-            "line": 27
+            "line": 67
           },
           {
             "match": "productOfferV2",
-            "line": 28
+            "line": 68
           },
           {
             "match": "generateShortLink",
-            "line": 29
+            "line": 69
           },
           {
             "match": "conversionReportV2",
-            "line": 30
+            "line": 70
           },
           {
             "match": "validationReportV2",
-            "line": 31
+            "line": 71
           },
           {
             "match": "shopeeOfferV2",
-            "line": 36
+            "line": 76
           },
           {
             "match": "productOfferV2",
-            "line": 37
+            "line": 77
           },
           {
             "match": "generateShortLink",
-            "line": 38
+            "line": 78
           },
           {
             "match": "conversionReportV2",
-            "line": 39
+            "line": 79
           },
           {
             "match": "validationReportV2",
-            "line": 40
+            "line": 80
           }
         ],
         "externalHost": [
           {
             "match": "https://open-api.affiliate.shopee.com.my/graphql`.",
-            "line": 22
+            "line": 43
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc`",
+            "line": 45
           },
           {
             "match": "https://shopee.com.my/product/334425154/8200081234",
-            "line": 38
+            "line": 56
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 78
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 85
           }
         ],
         "dotEnv": [
@@ -322,147 +663,236 @@
           },
           {
             "match": ".env",
-            "line": 9
+            "line": 11
           },
           {
             "match": "SHOPEE_API",
-            "line": 12
+            "line": 14
           },
           {
             "match": "APP_ID",
-            "line": 12
+            "line": 14
           },
           {
             "match": "SHOPEE_API",
-            "line": 13
+            "line": 15
           },
           {
             "match": "SECRET",
-            "line": 13
+            "line": 15
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 24
+          },
+          {
+            "match": "APP_ID",
+            "line": 24
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 25
+          },
+          {
+            "match": "SECRET",
+            "line": 25
           }
         ]
       }
     },
     {
       "path": "Code/nodejs/index.js",
-      "lines": 153,
+      "lines": 382,
       "functions": [
         "loadEnv",
         "buildPayload",
         "buildAuthorization",
-        "callShopeeApi"
+        "buildWebHeaders",
+        "applyTemplate",
+        "isPlaceholderUrl",
+        "loadPortalTemplate",
+        "callShopeeWebShortLink",
+        "cookieModeArgs",
+        "callShopeeWebApi",
+        "callShopeeGraphql",
+        "callShopeeApi",
+        "sub"
       ],
       "matches": {
         "jsFunction": [
           {
             "match": "export function loadEnv",
-            "line": 10
+            "line": 13
           },
           {
             "match": "export function buildPayload",
-            "line": 34
+            "line": 37
           },
           {
             "match": "export function buildAuthorization",
-            "line": 93
+            "line": 96
+          },
+          {
+            "match": "export function buildWebHeaders",
+            "line": 106
+          },
+          {
+            "match": "export function applyTemplate",
+            "line": 160
+          },
+          {
+            "match": "sub = (",
+            "line": 161
+          },
+          {
+            "match": "export function isPlaceholderUrl",
+            "line": 182
+          },
+          {
+            "match": "export function loadPortalTemplate",
+            "line": 189
+          },
+          {
+            "match": "function callShopeeWebShortLink(",
+            "line": 200
+          },
+          {
+            "match": "export function cookieModeArgs",
+            "line": 257
+          },
+          {
+            "match": "function callShopeeWebApi(",
+            "line": 273
+          },
+          {
+            "match": "function callShopeeGraphql(",
+            "line": 302
           },
           {
             "match": "function callShopeeApi(",
-            "line": 99
+            "line": 336
           }
         ],
         "jsExport": [
           {
             "match": "export function loadEnv",
-            "line": 10
+            "line": 13
           },
           {
             "match": "export function buildPayload",
-            "line": 34
+            "line": 37
           },
           {
             "match": "export function buildAuthorization",
-            "line": 93
+            "line": 96
+          },
+          {
+            "match": "export function buildWebHeaders",
+            "line": 106
+          },
+          {
+            "match": "export const DEFAULT_PORTAL_LINK_TEMPLATE",
+            "line": 139
+          },
+          {
+            "match": "export function applyTemplate",
+            "line": 160
+          },
+          {
+            "match": "export function isPlaceholderUrl",
+            "line": 182
+          },
+          {
+            "match": "export function loadPortalTemplate",
+            "line": 189
+          },
+          {
+            "match": "export function cookieModeArgs",
+            "line": 257
           }
         ],
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 36
+            "line": 39
           },
           {
             "match": "shopeeOfferV2",
-            "line": 38
+            "line": 41
           },
           {
             "match": "brandOfferV2",
-            "line": 44
+            "line": 47
           },
           {
             "match": "brandOffer",
-            "line": 46
+            "line": 49
           },
           {
             "match": "productOfferV2",
-            "line": 52
+            "line": 55
           },
           {
             "match": "productOfferV2",
-            "line": 54
+            "line": 57
           },
           {
             "match": "generateShortLink",
-            "line": 60
+            "line": 63
           },
           {
             "match": "generateShortLink",
-            "line": 62
+            "line": 65
           },
           {
             "match": "conversionReportV2",
-            "line": 67
+            "line": 70
           },
           {
             "match": "conversionReport",
-            "line": 69
+            "line": 72
           },
           {
             "match": "validationReportV2",
-            "line": 75
+            "line": 78
           },
           {
             "match": "validatedReport",
-            "line": 77
+            "line": 80
           },
           {
             "match": "shopeeOfferV2",
-            "line": 108
+            "line": 310
           },
           {
             "match": "generateShortLink",
-            "line": 144
+            "line": 370
           }
         ],
         "authSig": [
           {
             "match": "createHash(\"sha256\")",
-            "line": 95
+            "line": 98
           },
           {
             "match": "SHA256",
-            "line": 96
+            "line": 99
           },
           {
             "match": "Credential",
-            "line": 96
+            "line": 99
           },
           {
             "match": "Timestamp",
-            "line": 96
+            "line": 99
           },
           {
             "match": "Signature",
-            "line": 96
+            "line": 99
+          },
+          {
+            "match": "Credential",
+            "line": 301
           }
         ],
         "externalHost": [
@@ -471,143 +901,321 @@
             "line": 6
           },
           {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc",
+            "line": 9
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 115
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+            "line": 142
+          },
+          {
+            "match": "https://affiliate.shopee.com.my",
+            "line": 146
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/",
+            "line": 147
+          },
+          {
             "match": "https://shopee.com.my",
-            "line": 109
+            "line": 311
           }
         ],
         "curl": [
           {
             "match": "fetch(",
-            "line": 114
+            "line": 232
+          },
+          {
+            "match": "fetch(",
+            "line": 289
+          },
+          {
+            "match": "fetch(",
+            "line": 316
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 62
+            "line": 65
+          },
+          {
+            "match": "subIds",
+            "line": 151
+          },
+          {
+            "match": "subIds",
+            "line": 151
+          },
+          {
+            "match": "subIds",
+            "line": 156
+          },
+          {
+            "match": "subIds",
+            "line": 157
+          },
+          {
+            "match": "subIds",
+            "line": 164
+          },
+          {
+            "match": "subIds",
+            "line": 164
+          },
+          {
+            "match": "subIds",
+            "line": 165
+          },
+          {
+            "match": "subIds",
+            "line": 165
+          },
+          {
+            "match": "subId",
+            "line": 199
+          },
+          {
+            "match": "subId",
+            "line": 199
+          },
+          {
+            "match": "subIds",
+            "line": 202
+          },
+          {
+            "match": "subIds",
+            "line": 219
+          },
+          {
+            "match": "subId",
+            "line": 373
+          },
+          {
+            "match": "subId",
+            "line": 373
           }
         ],
         "dotEnv": [
           {
             "match": ".env",
-            "line": 12
+            "line": 15
           },
           {
             "match": ".env",
-            "line": 12
+            "line": 15
           },
           {
             "match": ".env",
-            "line": 12
+            "line": 15
           },
           {
             "match": ".env",
-            "line": 100
+            "line": 209
+          },
+          {
+            "match": ".env",
+            "line": 278
           },
           {
             "match": "SHOPEE_API",
-            "line": 101
+            "line": 303
           },
           {
             "match": "APP_ID",
-            "line": 101
+            "line": 303
           },
           {
             "match": "SHOPEE_API",
-            "line": 102
+            "line": 304
           },
           {
             "match": "SECRET",
-            "line": 102
+            "line": 304
           },
           {
             "match": "SHOPEE_API",
-            "line": 105
+            "line": 307
           },
           {
             "match": "APP_ID",
-            "line": 105
+            "line": 307
           },
           {
             "match": "SHOPEE_API",
-            "line": 105
+            "line": 307
           },
           {
             "match": "SECRET",
-            "line": 105
+            "line": 307
           },
           {
             "match": ".env",
-            "line": 105
+            "line": 307
+          },
+          {
+            "match": ".env",
+            "line": 337
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 339
+          },
+          {
+            "match": "APP_ID",
+            "line": 339
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 339
+          },
+          {
+            "match": "SECRET",
+            "line": 339
+          },
+          {
+            "match": ".env",
+            "line": 353
           }
         ]
       }
     },
     {
       "path": "Code/nodejs/index.test.js",
-      "lines": 40,
+      "lines": 138,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 10
+            "line": 23
           },
           {
             "match": "generateShortLink",
-            "line": 25
+            "line": 38
           },
           {
             "match": "generateShortLink",
-            "line": 27
+            "line": 40
           },
           {
             "match": "generateShortLink",
-            "line": 30
+            "line": 43
           }
         ],
         "authSig": [
           {
             "match": "SHA256",
-            "line": 7
+            "line": 20
           },
           {
             "match": "Signature",
-            "line": 12
+            "line": 25
           },
           {
             "match": "createHash(\"sha256\")",
-            "line": 13
+            "line": 26
           },
           {
             "match": "SHA256",
-            "line": 21
+            "line": 34
           },
           {
             "match": "Credential",
-            "line": 21
+            "line": 34
           },
           {
             "match": "Timestamp",
-            "line": 21
+            "line": 34
           },
           {
             "match": "Signature",
-            "line": 21
+            "line": 34
           },
           {
             "match": "Signature",
-            "line": 21
+            "line": 34
           }
         ],
         "externalHost": [
           {
             "match": "https://shopee.com.my/product/334425154/8200081234",
-            "line": 26
+            "line": 39
           },
           {
             "match": "https://shopee.com.my",
-            "line": 36
+            "line": 49
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/v1/short_link",
+            "line": 77
+          },
+          {
+            "match": "https://shopee.com.my/product/1/2",
+            "line": 82
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/v1/short_link",
+            "line": 90
+          },
+          {
+            "match": "https://shopee.com.my/product/1/2",
+            "line": 94
+          },
+          {
+            "match": "https://shopee.com.my/p",
+            "line": 103
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+            "line": 110
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/v1/real",
+            "line": 111
+          }
+        ],
+        "subIds": [
+          {
+            "match": "subIds",
+            "line": 73
+          },
+          {
+            "match": "subIds",
+            "line": 79
+          },
+          {
+            "match": "subIds",
+            "line": 79
+          },
+          {
+            "match": "subIds",
+            "line": 79
+          },
+          {
+            "match": "subIds",
+            "line": 83
+          },
+          {
+            "match": "subIds",
+            "line": 95
+          },
+          {
+            "match": "subIds",
+            "line": 100
+          },
+          {
+            "match": "subIds",
+            "line": 102
+          },
+          {
+            "match": "subIds",
+            "line": 103
           }
         ]
       }
@@ -619,64 +1227,115 @@
       "matches": {}
     },
     {
+      "path": "Code/nodejs/portal-link.template.json",
+      "lines": 16,
+      "functions": [],
+      "matches": {
+        "externalHost": [
+          {
+            "match": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+            "line": 5
+          },
+          {
+            "match": "https://affiliate.shopee.com.my",
+            "line": 9
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/",
+            "line": 10
+          }
+        ],
+        "subIds": [
+          {
+            "match": "subIds",
+            "line": 2
+          },
+          {
+            "match": "subIds",
+            "line": 2
+          },
+          {
+            "match": "subIds",
+            "line": 14
+          },
+          {
+            "match": "subIds",
+            "line": 14
+          }
+        ]
+      }
+    },
+    {
       "path": "Code/php/README.md",
-      "lines": 42,
+      "lines": 86,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 26
+            "line": 66
           },
           {
             "match": "brandOfferV2",
-            "line": 27
+            "line": 67
           },
           {
             "match": "productOfferV2",
-            "line": 28
+            "line": 68
           },
           {
             "match": "generateShortLink",
-            "line": 29
+            "line": 69
           },
           {
             "match": "conversionReportV2",
-            "line": 30
+            "line": 70
           },
           {
             "match": "validationReportV2",
-            "line": 31
+            "line": 71
           },
           {
             "match": "shopeeOfferV2",
-            "line": 36
+            "line": 76
           },
           {
             "match": "productOfferV2",
-            "line": 37
+            "line": 77
           },
           {
             "match": "generateShortLink",
-            "line": 38
+            "line": 78
           },
           {
             "match": "conversionReportV2",
-            "line": 39
+            "line": 79
           },
           {
             "match": "validationReportV2",
-            "line": 40
+            "line": 80
           }
         ],
         "externalHost": [
           {
             "match": "https://open-api.affiliate.shopee.com.my/graphql`.",
-            "line": 22
+            "line": 43
+          },
+          {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc`",
+            "line": 45
           },
           {
             "match": "https://shopee.com.my/product/334425154/8200081234",
-            "line": 38
+            "line": 56
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 78
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 84
           }
         ],
         "dotEnv": [
@@ -690,132 +1349,186 @@
           },
           {
             "match": ".env",
-            "line": 9
+            "line": 11
           },
           {
             "match": "SHOPEE_API",
-            "line": 12
+            "line": 14
           },
           {
             "match": "APP_ID",
-            "line": 12
+            "line": 14
           },
           {
             "match": "SHOPEE_API",
-            "line": 13
+            "line": 15
           },
           {
             "match": "SECRET",
-            "line": 13
+            "line": 15
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 24
+          },
+          {
+            "match": "APP_ID",
+            "line": 24
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 25
+          },
+          {
+            "match": "SECRET",
+            "line": 25
           }
         ]
       }
     },
     {
       "path": "Code/php/index.php",
-      "lines": 166,
+      "lines": 401,
       "functions": [
         "loadEnv",
         "buildPayload",
-        "callShopeeApi"
+        "callShopeeApi",
+        "buildWebHeaders",
+        "applyTemplate",
+        "isPlaceholderUrl",
+        "loadPortalTemplate",
+        "callShopeeWebShortLink",
+        "callShopeeWebApi"
       ],
       "matches": {
         "jsFunction": [
           {
             "match": "function loadEnv(",
-            "line": 7
+            "line": 10
           },
           {
             "match": "function buildPayload(",
-            "line": 38
+            "line": 41
           },
           {
             "match": "function callShopeeApi(",
-            "line": 104
+            "line": 107
           },
           {
             "match": "httpCode = (",
-            "line": 123
+            "line": 126
+          },
+          {
+            "match": "function buildWebHeaders(",
+            "line": 149
+          },
+          {
+            "match": "function applyTemplate(",
+            "line": 199
+          },
+          {
+            "match": "function isPlaceholderUrl(",
+            "line": 228
+          },
+          {
+            "match": "function loadPortalTemplate(",
+            "line": 233
+          },
+          {
+            "match": "function callShopeeWebShortLink(",
+            "line": 249
+          },
+          {
+            "match": "httpCode = (",
+            "line": 297
+          },
+          {
+            "match": "function callShopeeWebApi(",
+            "line": 318
+          },
+          {
+            "match": "httpCode = (",
+            "line": 343
           }
         ],
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 40
+            "line": 43
           },
           {
             "match": "shopeeOfferV2",
-            "line": 44
+            "line": 47
           },
           {
             "match": "shopeeOfferV2",
-            "line": 46
+            "line": 49
           },
           {
             "match": "brandOfferV2",
-            "line": 52
+            "line": 55
           },
           {
             "match": "brandOffer",
-            "line": 54
+            "line": 57
           },
           {
             "match": "productOfferV2",
-            "line": 60
+            "line": 63
           },
           {
             "match": "productOfferV2",
-            "line": 62
+            "line": 65
           },
           {
             "match": "generateShortLink",
-            "line": 68
+            "line": 71
           },
           {
             "match": "generateShortLink",
-            "line": 70
+            "line": 73
           },
           {
             "match": "conversionReportV2",
-            "line": 75
+            "line": 78
           },
           {
             "match": "conversionReport",
-            "line": 77
+            "line": 80
           },
           {
             "match": "validationReportV2",
-            "line": 83
+            "line": 86
           },
           {
             "match": "validatedReport",
-            "line": 85
+            "line": 88
           },
           {
             "match": "shopeeOfferV2",
-            "line": 153
+            "line": 374
           },
           {
             "match": "generateShortLink",
-            "line": 163
+            "line": 396
           }
         ],
         "authSig": [
           {
             "match": "SHA256",
-            "line": 117
+            "line": 120
           },
           {
             "match": "Credential",
-            "line": 117
+            "line": 120
           },
           {
             "match": "Timestamp",
-            "line": 117
+            "line": 120
           },
           {
             "match": "Signature",
-            "line": 117
+            "line": 120
           }
         ],
         "externalHost": [
@@ -824,98 +1537,242 @@
             "line": 5
           },
           {
+            "match": "https://shopee.com.my/api/v4/pdp/get_pc",
+            "line": 8
+          },
+          {
             "match": "https://shopee.com.my",
-            "line": 41
+            "line": 44
+          },
+          {
+            "match": "https://shopee.com.my/",
+            "line": 159
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+            "line": 186
+          },
+          {
+            "match": "https://affiliate.shopee.com.my",
+            "line": 190
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/",
+            "line": 191
           }
         ],
         "curl": [
           {
             "match": "curl_init",
-            "line": 110
+            "line": 113
           },
           {
             "match": "curl_setopt_array",
-            "line": 111
+            "line": 114
           },
           {
             "match": "curl_exec",
-            "line": 122
+            "line": 125
           },
           {
             "match": "curl_getinfo",
-            "line": 123
+            "line": 126
           },
           {
             "match": "curl_error",
-            "line": 124
+            "line": 127
           },
           {
             "match": "curl_close",
-            "line": 125
+            "line": 128
+          },
+          {
+            "match": "curl_init",
+            "line": 284
+          },
+          {
+            "match": "curl_setopt_array",
+            "line": 294
+          },
+          {
+            "match": "curl_exec",
+            "line": 296
+          },
+          {
+            "match": "curl_getinfo",
+            "line": 297
+          },
+          {
+            "match": "curl_error",
+            "line": 298
+          },
+          {
+            "match": "curl_close",
+            "line": 299
+          },
+          {
+            "match": "curl_init",
+            "line": 335
+          },
+          {
+            "match": "curl_setopt_array",
+            "line": 336
+          },
+          {
+            "match": "curl_exec",
+            "line": 342
+          },
+          {
+            "match": "curl_getinfo",
+            "line": 343
+          },
+          {
+            "match": "curl_error",
+            "line": 344
+          },
+          {
+            "match": "curl_close",
+            "line": 345
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 70
+            "line": 73
+          },
+          {
+            "match": "subIds",
+            "line": 195
+          },
+          {
+            "match": "subIds",
+            "line": 195
+          },
+          {
+            "match": "subIds",
+            "line": 203
+          },
+          {
+            "match": "subIds",
+            "line": 203
+          },
+          {
+            "match": "subIds",
+            "line": 206
+          },
+          {
+            "match": "subIds",
+            "line": 207
+          },
+          {
+            "match": "subId",
+            "line": 248
+          },
+          {
+            "match": "subId",
+            "line": 248
+          },
+          {
+            "match": "subIds",
+            "line": 253
+          },
+          {
+            "match": "subIds",
+            "line": 255
+          },
+          {
+            "match": "subIds",
+            "line": 255
+          },
+          {
+            "match": "subIds",
+            "line": 257
+          },
+          {
+            "match": "subIds",
+            "line": 257
+          },
+          {
+            "match": "subIds",
+            "line": 271
+          },
+          {
+            "match": "subIds",
+            "line": 271
+          },
+          {
+            "match": "subId",
+            "line": 398
+          },
+          {
+            "match": "subId",
+            "line": 398
           }
         ],
         "dotEnv": [
           {
             "match": ".env",
-            "line": 10
+            "line": 13
           },
           {
             "match": ".env",
-            "line": 10
+            "line": 13
           },
           {
             "match": ".env",
-            "line": 10
+            "line": 13
           },
           {
             "match": ".env",
-            "line": 16
+            "line": 19
           },
           {
             "match": ".env",
-            "line": 143
+            "line": 261
+          },
+          {
+            "match": ".env",
+            "line": 325
+          },
+          {
+            "match": ".env",
+            "line": 366
           },
           {
             "match": "SHOPEE_API",
-            "line": 144
+            "line": 367
           },
           {
             "match": "APP_ID",
-            "line": 144
+            "line": 367
           },
           {
             "match": "SHOPEE_API",
-            "line": 145
+            "line": 368
           },
           {
             "match": "SECRET",
-            "line": 145
-          },
-          {
-            "match": "SHOPEE_API",
-            "line": 148
-          },
-          {
-            "match": "APP_ID",
-            "line": 148
-          },
-          {
-            "match": "SHOPEE_API",
-            "line": 148
-          },
-          {
-            "match": "SECRET",
-            "line": 148
+            "line": 368
           },
           {
             "match": ".env",
-            "line": 148
+            "line": 384
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 384
+          },
+          {
+            "match": "APP_ID",
+            "line": 384
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 384
+          },
+          {
+            "match": "SECRET",
+            "line": 384
           }
         ]
       }
@@ -960,55 +1817,55 @@
     },
     {
       "path": "README.md",
-      "lines": 252,
+      "lines": 258,
       "functions": [],
       "matches": {
         "graphqlOp": [
           {
             "match": "shopOfferV2",
-            "line": 88
+            "line": 94
           },
           {
             "match": "productOfferV2",
-            "line": 121
+            "line": 127
           },
           {
             "match": "generateShortLink",
-            "line": 143
+            "line": 149
           },
           {
             "match": "generateShortLink",
-            "line": 158
+            "line": 164
           },
           {
             "match": "generateShortLink",
-            "line": 162
+            "line": 168
           },
           {
             "match": "conversionReport",
-            "line": 167
+            "line": 173
           },
           {
             "match": "validatedReport",
-            "line": 186
+            "line": 192
           }
         ],
         "authSig": [
           {
             "match": "SHA256",
-            "line": 156
+            "line": 162
           },
           {
             "match": "Credential",
-            "line": 156
+            "line": 162
           },
           {
             "match": "Signature",
-            "line": 156
+            "line": 162
           },
           {
             "match": "Timestamp",
-            "line": 156
+            "line": 162
           }
         ],
         "externalHost": [
@@ -1018,52 +1875,52 @@
           },
           {
             "match": "https://addlivetag.com/shopee-affiliate-api/index.php>",
-            "line": 38
+            "line": 42
           },
           {
             "match": "https://addlivetag.com/>",
-            "line": 39
+            "line": 43
           },
           {
             "match": "https://affiliate.shopee.com.my/",
-            "line": 46
+            "line": 50
           },
           {
             "match": "https://open.shopee.com.my/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654",
-            "line": 68
+            "line": 74
           },
           {
             "match": "https://open-api.affiliate.shopee.com.my/graphql",
-            "line": 155
+            "line": 161
           },
           {
             "match": "https://shopee.com.my/product/334425154/8200081234\\",
-            "line": 158
+            "line": 164
           },
           {
             "match": "https://shope.ee/5XyZ7WqR",
-            "line": 162
+            "line": 168
           },
           {
             "match": "https://help.shopee.com.my/portal/webform/99dbea1dc4894accae65f606c2f91af5",
-            "line": 219
+            "line": 225
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 150
+            "line": 156
           },
           {
             "match": "subIds",
-            "line": 158
+            "line": 164
           }
         ]
       }
     },
     {
       "path": "REVERSE_ENGINEERING.md",
-      "lines": 398,
+      "lines": 405,
       "functions": [
         "test"
       ],
@@ -1071,45 +1928,45 @@
         "jsFunction": [
           {
             "match": "function test(",
-            "line": 172
+            "line": 177
           }
         ],
         "graphqlOp": [
           {
             "match": "shopeeOfferV2",
-            "line": 134
+            "line": 139
           },
           {
             "match": "shopeeOfferV2",
-            "line": 173
+            "line": 178
           },
           {
             "match": "conversionReport",
-            "line": 346
+            "line": 351
           },
           {
             "match": "validatedReport",
-            "line": 346
+            "line": 351
           },
           {
             "match": "shopeeOfferV2",
-            "line": 357
+            "line": 363
           },
           {
             "match": "productOfferV2",
-            "line": 357
+            "line": 363
           },
           {
             "match": "generateShortLink",
-            "line": 357
+            "line": 363
           },
           {
             "match": "conversionReport",
-            "line": 357
+            "line": 363
           },
           {
             "match": "validatedReport",
-            "line": 357
+            "line": 363
           }
         ],
         "authSig": [
@@ -1119,79 +1976,79 @@
           },
           {
             "match": "Credential",
-            "line": 56
+            "line": 61
           },
           {
             "match": "Signature",
-            "line": 106
+            "line": 111
           },
           {
             "match": "SHA256",
-            "line": 106
+            "line": 111
           },
           {
             "match": "SHA256",
-            "line": 108
+            "line": 113
           },
           {
             "match": "Credential",
-            "line": 108
+            "line": 113
           },
           {
             "match": "Timestamp",
-            "line": 108
+            "line": 113
           },
           {
             "match": "Signature",
-            "line": 108
+            "line": 113
           },
           {
             "match": "Signature",
-            "line": 157
+            "line": 162
           },
           {
             "match": "Timestamp",
-            "line": 160
+            "line": 165
           },
           {
             "match": "Signature",
-            "line": 163
+            "line": 168
           },
           {
             "match": "SHA256",
-            "line": 163
+            "line": 168
           },
           {
             "match": "SHA256",
-            "line": 164
+            "line": 169
           },
           {
             "match": "Credential",
-            "line": 164
+            "line": 169
           },
           {
             "match": "Timestamp",
-            "line": 164
+            "line": 169
           },
           {
             "match": "Signature",
-            "line": 164
+            "line": 169
           },
           {
             "match": "createHash(\"sha256\")",
-            "line": 174
+            "line": 179
           },
           {
             "match": "SHA256",
-            "line": 175
+            "line": 180
           },
           {
             "match": "Credential",
-            "line": 175
+            "line": 180
           },
           {
             "match": "Timestamp",
-            "line": 175
+            "line": 180
           }
         ],
         "externalHost": [
@@ -1205,165 +2062,173 @@
           },
           {
             "match": "https://open-api.affiliate.shopee.com.my/graphql",
-            "line": 107
+            "line": 112
           },
           {
             "match": "https://shopee.com.my/product/334425154/8200081234&Sub_id1=MyTest",
-            "line": 123
+            "line": 128
           },
           {
             "match": "https://shopee.com.my/api/v4/item/get?itemid=xxx&shopid=yyy",
-            "line": 217
+            "line": 222
           },
           {
             "match": "https://shopee.com.my/api/v4/item/get?itemid=8200081234&shopid=334425154",
-            "line": 220
+            "line": 225
           },
           {
             "match": "https://shopee.com.my/",
-            "line": 223
+            "line": 228
           },
           {
             "match": "https://s.shopee.com.my/6VCtHgpohc",
-            "line": 226
+            "line": 231
           },
           {
             "match": "https://evil.com",
-            "line": 239
+            "line": 244
           },
           {
             "match": "https://shopee.com.my.evil.com",
-            "line": 239
+            "line": 244
           },
           {
             "match": "https://shopee.com.my/product/334425154/8200081234",
-            "line": 263
+            "line": 268
           },
           {
             "match": "https://open-api.affiliate.shopee.com.my/graphql]",
-            "line": 292
+            "line": 297
           }
         ],
         "supGlobals": [
           {
             "match": "$_POST",
-            "line": 87
+            "line": 92
           },
           {
             "match": "$_GET",
-            "line": 87
+            "line": 92
           },
           {
             "match": "$_POST",
-            "line": 363
+            "line": 369
           },
           {
             "match": "$_GET",
-            "line": 363
+            "line": 369
           }
         ],
         "db": [
           {
             "match": "mysqli",
-            "line": 109
+            "line": 114
           },
           {
             "match": "mysqli",
-            "line": 333
+            "line": 338
           },
           {
             "match": "mysqli",
-            "line": 333
+            "line": 338
           },
           {
             "match": "mysqli",
-            "line": 363
+            "line": 369
           }
         ],
         "subIds": [
           {
             "match": "subIds",
-            "line": 32
-          },
-          {
-            "match": "Sub_id",
-            "line": 97
+            "line": 30
           },
           {
             "match": "subIds",
+            "line": 37
+          },
+          {
+            "match": "Sub_id",
             "line": 102
           },
           {
             "match": "subIds",
-            "line": 104
-          },
-          {
-            "match": "Sub_id",
-            "line": 123
-          },
-          {
-            "match": "Sub_id",
-            "line": 149
-          },
-          {
-            "match": "Sub_id",
-            "line": 149
-          },
-          {
-            "match": "Sub_id",
-            "line": 151
-          },
-          {
-            "match": "Sub_id",
-            "line": 151
+            "line": 107
           },
           {
             "match": "subIds",
-            "line": 359
+            "line": 109
           },
           {
             "match": "Sub_id",
-            "line": 360
+            "line": 128
+          },
+          {
+            "match": "Sub_id",
+            "line": 154
+          },
+          {
+            "match": "Sub_id",
+            "line": 154
+          },
+          {
+            "match": "Sub_id",
+            "line": 156
+          },
+          {
+            "match": "Sub_id",
+            "line": 156
           },
           {
             "match": "subIds",
-            "line": 360
+            "line": 365
+          },
+          {
+            "match": "Sub_id",
+            "line": 366
+          },
+          {
+            "match": "subIds",
+            "line": 366
+          },
+          {
+            "match": "subIds",
+            "line": 386
           }
         ],
         "dotEnv": [
           {
             "match": ".env",
-            "line": 35
+            "line": 40
           },
           {
             "match": "SECRET",
-            "line": 56
+            "line": 61
           },
           {
             "match": ".env",
-            "line": 56
+            "line": 61
           },
           {
             "match": ".env",
-            "line": 132
+            "line": 137
           },
           {
             "match": ".env",
-            "line": 132
+            "line": 137
           },
           {
             "match": ".env",
-            "line": 133
+            "line": 138
           }
         ],
         "removeParam": [
           {
             "match": "removeParam",
-            "line": 100
+            "line": 105
           },
           {
             "match": "removeParam",
-            "line": 345
+            "line": 350
           }
         ]
       }
@@ -2019,42 +2884,46 @@
     },
     {
       "path": "docs/README.md",
-      "lines": 31,
+      "lines": 32,
       "functions": [],
       "matches": {
         "authSig": [
           {
             "match": "SHA256",
-            "line": 19
+            "line": 20
           }
         ]
       }
     },
     {
       "path": "docs/reverse-engineering/01-repo-map.md",
-      "lines": 70,
+      "lines": 83,
       "functions": [],
       "matches": {
         "authSig": [
           {
+            "match": "Signature",
+            "line": 30
+          },
+          {
             "match": "SHA256",
-            "line": 35
+            "line": 42
           }
         ],
         "externalHost": [
           {
             "match": "https://shp.ee/...`",
-            "line": 40
+            "line": 52
           },
           {
             "match": "https://data.addlivetag.com/product-data/product-data.php`",
-            "line": 46
+            "line": 58
           }
         ],
         "supGlobals": [
           {
             "match": "$_POST",
-            "line": 58
+            "line": 71
           }
         ],
         "subIds": [
@@ -2064,25 +2933,61 @@
           },
           {
             "match": "subIds",
-            "line": 40
+            "line": 41
           },
           {
             "match": "subIds",
-            "line": 41
+            "line": 42
+          },
+          {
+            "match": "subIds",
+            "line": 48
+          },
+          {
+            "match": "subIds",
+            "line": 52
+          },
+          {
+            "match": "subIds",
+            "line": 53
+          },
+          {
+            "match": "subId",
+            "line": 67
+          },
+          {
+            "match": "subId",
+            "line": 68
           }
         ],
         "dotEnv": [
           {
             "match": ".env",
-            "line": 22
+            "line": 23
           },
           {
             "match": ".env",
-            "line": 25
+            "line": 26
           },
           {
             "match": ".env",
-            "line": 35
+            "line": 42
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 42
+          },
+          {
+            "match": "APP_ID",
+            "line": 42
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 42
+          },
+          {
+            "match": "SECRET",
+            "line": 42
           }
         ]
       }
@@ -2522,8 +3427,111 @@
       }
     },
     {
+      "path": "docs/reverse-engineering/06-portal-short-link.md",
+      "lines": 227,
+      "functions": [],
+      "matches": {
+        "graphqlOp": [
+          {
+            "match": "generateShortLink",
+            "line": 3
+          },
+          {
+            "match": "conversionReport",
+            "line": 174
+          }
+        ],
+        "externalHost": [
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 115
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 126
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 145
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 151
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 153
+          },
+          {
+            "match": "https://shp.ee/abc123",
+            "line": 167
+          }
+        ],
+        "subIds": [
+          {
+            "match": "subId",
+            "line": 19
+          },
+          {
+            "match": "subId",
+            "line": 20
+          },
+          {
+            "match": "subIds",
+            "line": 35
+          },
+          {
+            "match": "subIds",
+            "line": 51
+          },
+          {
+            "match": "subIds",
+            "line": 53
+          },
+          {
+            "match": "subId",
+            "line": 54
+          },
+          {
+            "match": "subIds",
+            "line": 79
+          },
+          {
+            "match": "subIds",
+            "line": 105
+          }
+        ],
+        "dotEnv": [
+          {
+            "match": ".env",
+            "line": 21
+          },
+          {
+            "match": ".env",
+            "line": 139
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 140
+          },
+          {
+            "match": "APP_ID",
+            "line": 140
+          },
+          {
+            "match": "SHOPEE_API",
+            "line": 141
+          },
+          {
+            "match": "SECRET",
+            "line": 141
+          }
+        ]
+      }
+    },
+    {
       "path": "docs/reverse-engineering/README.md",
-      "lines": 15,
+      "lines": 17,
       "functions": [],
       "matches": {}
     },
@@ -2796,6 +3804,268 @@
           {
             "match": "removeParam",
             "line": 61
+          }
+        ]
+      }
+    },
+    {
+      "path": "tools/trace-portal-link.js",
+      "lines": 480,
+      "functions": [
+        "tokenizeCurl",
+        "parseCurl",
+        "redactHeader",
+        "redactBody",
+        "findShopeeUrls",
+        "buildTemplateFromCapture",
+        "applyTemplate",
+        "isPlaceholderUrl",
+        "sendRequest",
+        "printRequest",
+        "readTemplate",
+        "printUsage",
+        "parseArgs",
+        "main",
+        "next",
+        "sub",
+        "redact",
+        "subIds"
+      ],
+      "matches": {
+        "jsFunction": [
+          {
+            "match": "function tokenizeCurl(",
+            "line": 53
+          },
+          {
+            "match": "export function parseCurl",
+            "line": 108
+          },
+          {
+            "match": "next = (",
+            "line": 121
+          },
+          {
+            "match": "export function redactHeader",
+            "line": 175
+          },
+          {
+            "match": "function redactBody(",
+            "line": 186
+          },
+          {
+            "match": "function findShopeeUrls(",
+            "line": 191
+          },
+          {
+            "match": "export function buildTemplateFromCapture",
+            "line": 199
+          },
+          {
+            "match": "export function applyTemplate",
+            "line": 256
+          },
+          {
+            "match": "sub = (",
+            "line": 257
+          },
+          {
+            "match": "export function isPlaceholderUrl",
+            "line": 276
+          },
+          {
+            "match": "function sendRequest(",
+            "line": 284
+          },
+          {
+            "match": "function printRequest(",
+            "line": 304
+          },
+          {
+            "match": "redact = (",
+            "line": 305
+          },
+          {
+            "match": "function readTemplate(",
+            "line": 311
+          },
+          {
+            "match": "function printUsage(",
+            "line": 325
+          },
+          {
+            "match": "function parseArgs(",
+            "line": 356
+          },
+          {
+            "match": "function main(",
+            "line": 391
+          },
+          {
+            "match": "subIds = (",
+            "line": 432
+          }
+        ],
+        "jsExport": [
+          {
+            "match": "export function parseCurl",
+            "line": 108
+          },
+          {
+            "match": "export function redactHeader",
+            "line": 175
+          },
+          {
+            "match": "export function buildTemplateFromCapture",
+            "line": 199
+          },
+          {
+            "match": "export function applyTemplate",
+            "line": 256
+          },
+          {
+            "match": "export function isPlaceholderUrl",
+            "line": 276
+          }
+        ],
+        "externalHost": [
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 24
+          },
+          {
+            "match": "https://shopee.com.my/product/334425154/8200081234",
+            "line": 28
+          },
+          {
+            "match": "https://shopee.com.my/product/1/2",
+            "line": 347
+          },
+          {
+            "match": "https://shopee.com.my/product/1/2",
+            "line": 348
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+            "line": 379
+          },
+          {
+            "match": "https://affiliate.shopee.com.my",
+            "line": 383
+          },
+          {
+            "match": "https://affiliate.shopee.com.my/",
+            "line": 384
+          }
+        ],
+        "curl": [
+          {
+            "match": "fetch(",
+            "line": 288
+          }
+        ],
+        "subIds": [
+          {
+            "match": "subIds",
+            "line": 225
+          },
+          {
+            "match": "subIds",
+            "line": 226
+          },
+          {
+            "match": "subIds",
+            "line": 227
+          },
+          {
+            "match": "subIds",
+            "line": 230
+          },
+          {
+            "match": "subIds",
+            "line": 231
+          },
+          {
+            "match": "subIds",
+            "line": 232
+          },
+          {
+            "match": "subIds",
+            "line": 238
+          },
+          {
+            "match": "subIds",
+            "line": 260
+          },
+          {
+            "match": "subIds",
+            "line": 260
+          },
+          {
+            "match": "subIds",
+            "line": 261
+          },
+          {
+            "match": "subIds",
+            "line": 261
+          },
+          {
+            "match": "subIds",
+            "line": 388
+          },
+          {
+            "match": "subIds",
+            "line": 388
+          },
+          {
+            "match": "subIds",
+            "line": 410
+          },
+          {
+            "match": "subIds",
+            "line": 432
+          },
+          {
+            "match": "subIds",
+            "line": 437
+          },
+          {
+            "match": "subIds",
+            "line": 450
+          },
+          {
+            "match": "subIds",
+            "line": 450
+          },
+          {
+            "match": "subIds",
+            "line": 450
+          }
+        ],
+        "dotEnv": [
+          {
+            "match": "SECRET",
+            "line": 47
+          },
+          {
+            "match": "SECRET",
+            "line": 177
+          },
+          {
+            "match": ".env",
+            "line": 313
+          },
+          {
+            "match": ".env",
+            "line": 313
+          },
+          {
+            "match": ".env",
+            "line": 429
+          },
+          {
+            "match": ".env",
+            "line": 430
           }
         ]
       }

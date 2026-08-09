@@ -46,7 +46,22 @@ With a cookie, it calls `https://shopee.com.my/api/v4/pdp/get_pc` using the
 session cookie (pass `item_id` and optional `shop_id` as arguments, or set
 `SHOPEE_ITEM_ID` / `SHOPEE_SHOP_ID`).
 
-## Available APIs (`apiName` argument)
+### Cookie-mode short links (no Open API credentials)
+
+The affiliate portal's browser UI generates affiliate links **with subIDs**
+through an internal web API. Capture that request once and replay it:
+
+```bash
+node tools/trace-portal-link.js --capture '<pasted cURL>' --out portal-link.template.json
+node index.js shortLink "https://shopee.com.my/product/334425154/8200081234" campaign1 facebook
+```
+
+The template path defaults to `portal-link.template.json` next to this file
+(override with `SHOPEE_WEB_LINK_TEMPLATE`; fallback to a built-in example).
+SubIDs can also come from `SHOPEE_SUB_IDS=campaign1,facebook` (max 5). See
+[`docs/reverse-engineering/06-portal-short-link.md`](../../docs/reverse-engineering/06-portal-short-link.md).
+
+## Available APIs (`apiName` argument — credential mode)
 
 - `shopeeOfferV2`
 - `brandOfferV2`
@@ -63,6 +78,11 @@ node index.js productOfferV2
 node index.js generateShortLink "https://shopee.com.my/product/334425154/8200081234"
 node index.js conversionReportV2
 node index.js validationReportV2
+
+# cookie mode
+node index.js 8200081234 334425154                          # product lookup
+node index.js product 8200081234 334425154                  # same, explicit
+node index.js shortLink "https://shopee.com.my/product/334425154/8200081234" campaign1 facebook
 ```
 
 ## Checks before pushing
