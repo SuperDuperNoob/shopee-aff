@@ -22,6 +22,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 
 const IGNORE_DIRS = new Set([".git", "node_modules", ".next", "dist", "assets"]);
+const IGNORE_FILES = new Set(["auto-report.md", "auto-report.json"]); // generated output, don't re-scan
 const CODE_EXT = new Set([".php", ".js", ".json", ".md"]);
 
 function walk(dir, out = []) {
@@ -31,7 +32,7 @@ function walk(dir, out = []) {
     if (entry.isDirectory()) walk(full, out);
     else if (CODE_EXT.has(path.extname(entry.name)) || entry.name.includes(".")) {
       // also include .env.example etc
-      if (!full.includes(".git/")) out.push(full);
+      if (!full.includes(".git/") && !IGNORE_FILES.has(entry.name)) out.push(full);
     }
   }
   return out;
@@ -159,7 +160,7 @@ function main() {
     }
   }
 
-  md += `\n## How to Use This Report\n\n1. Start with files with most functions: \`bc-custom-link/func.php\`, \`Code/nodejs/index.js\`\n2. Follow host call chain: \`bc-custom-link/index.php -> link.php -> func.php -> https://open-api.affiliate.shopee.vn/graphql\`\n3. Check auth: search for \`authSig\`\n4. Trace input: search for \`supGlobals\` (\$_POST) + \`subIds\`\n`;
+  md += `\n## How to Use This Report\n\n1. Start with files with most functions: \`bc-custom-link/func.php\`, \`Code/nodejs/index.js\`\n2. Follow host call chain: \`bc-custom-link/index.php -> link.php -> func.php -> https://open-api.affiliate.shopee.com.my/graphql\`\n3. Check auth: search for \`authSig\`\n4. Trace input: search for \`supGlobals\` (\$_POST) + \`subIds\`\n`;
 
   fs.writeFileSync(path.join(outDir, "auto-report.md"), md, "utf8");
 

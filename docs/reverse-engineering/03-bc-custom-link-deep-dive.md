@@ -40,7 +40,7 @@ POST tp=link
 Validations:
 
 1. `trim()` appID/secret, must exist else "Please provide both the App ID and secret"
-2. Demo mode: if both == 'demo', set `$appDemo=1` then later overwrite to empty string — expects deployer to edit file (line 50-51 comment: change this, see at https://affiliate.shopee.vn/open_api)
+2. Demo mode: if both == 'demo', set `$appDemo=1` then later overwrite to empty string — expects deployer to edit file (line 65-66 comment: change this, see at https://affiliate.shopee.com.my/open_api)
 3. `removeParam(url, 'sp_atk')` + `removeParam(url, 'xptdk')` strips tracking params that break affiliate attribution.
    ```php
    function removeParam($url, $param) {
@@ -51,7 +51,7 @@ Validations:
    Potential issue: if URL has `?sp_atk=foo&sp_atk=bar`, first regex removes trailing, second removes with &, but would leave `?` if only param. Edge case.
 4. `filter_var($url, FILTER_VALIDATE_URL)` else "Invalid URL"
 5. `parse_url($url, PHP_URL_HOST)` must contain `shopee.` (stripos) else "Only Shopee URLs are supported"
-   - Note: `shopee.vn.evil.com` contains `shopee.` but is attacker-controlled. Should also check TLD suffix or use allowlist of `*.shopee.*`. Current check is weak.
+   - Note: `shopee.com.my.evil.com` contains `shopee.` but is attacker-controlled. Should also check TLD suffix or use allowlist of `*.shopee.*`. Current check is weak.
 6. Sanitize subIds: `preg_replace('/[^a-zA-Z0-9_-]/', '', $val)` then `array_filter` + `array_slice(0,5)` — good, removes injection.
 
 Then calls `short_link($us_id, $apiAppID, $apiSecret, $url, $subIds)`
@@ -117,11 +117,11 @@ ALTER TABLE `shopee_affiliate_link` ADD PRIMARY KEY (`id`);
 
 | Area | Finding | Severity | Fix |
 |------|---------|----------|-----|
-| Host validation | `stripos(host, 'shopee.')` allows `shopee.evil.com` | Medium | Use suffix check: host ends with `.shopee.vn`, `shopee.vn`, `shopee.com.my` etc or regex `\bshopee\.[a-z.]+\b` + allowlist |
+| Host validation | `stripos(host, 'shopee.')` allows `shopee.evil.com` | Medium | Use suffix check: host ends with `.shopee.com.my` or equals `shopee.com.my` (+ other Shopee market domains if needed) or regex `\bshopee\.[a-z.]+\b` + allowlist |
 | XFF spoof | `get_client_ip` trusts XFF unverified | Low/Med | Check if behind Cloudflare, validate trusted proxy, or use `$_SERVER['REMOTE_ADDR']` only |
 | removeParam | Regex with `preg_quote` okay, but leaves `?` or `&` artifacts | Low | Use `parse_url` + `parse_str` + rebuild |
 | Demo creds | `demo` -> empty string, then API fails, but JS still sends demo | Low | Better return 501 "Configure credentials" in demo mode |
-| cURL | No SSRF protection beyond host check in caller; if caller bypassed, could fetch internal | Low | In `shopee_aff_api` add allowlist of hosts to POST (only `open-api.affiliate.shopee.vn`) |
+| cURL | No SSRF protection beyond host check in caller; if caller bypassed, could fetch internal | Low | In `shopee_aff_api` add allowlist of hosts to POST (only `open-api.affiliate.shopee.com.my`) |
 | Cookie | SameSite Lax + HttpOnly good, but domain derived from HTTP_HOST can be manipulated | Low | Use empty domain (browser defaults) or config |
 | SQL id | No AUTO_INCREMENT | Medium | Add AUTO_INCREMENT |
 | Bootstrap 4.1.3 | Known XSS CVEs in tooltip/collapse | Low | Upgrade to 4.6+ or 5.x |
@@ -131,8 +131,8 @@ ALTER TABLE `shopee_affiliate_link` ADD PRIMARY KEY (`id`);
 1. `php -S 0.0.0.0:8000` in bc-custom-link
 2. Intercept with Burp/DevTools
 3. Try payloads:
-   - `url=https://shopee.vn.evil.com/product/1/1` -> should be blocked but currently passes (demonstrates weak check)
-   - `url=https://shopee.vn/product/1/1?sp_atk=evil&xptdk=evil` -> observe stripping
+   - `url=https://shopee.com.my.evil.com/product/1/1` -> should be blocked but currently passes (demonstrates weak check)
+   - `url=https://shopee.com.my/product/1/1?sp_atk=evil&xptdk=evil` -> observe stripping
    - `Sub_id1=<script>alert(1)</script>` -> observe sanitization to `scriptalert1script`
    - `apiAppID=demo&apiSecret=demo` -> observe empty creds path
 4. Check DB logging by setting conn.php creds to local MySQL, run request, SELECT * FROM shopee_affiliate_link

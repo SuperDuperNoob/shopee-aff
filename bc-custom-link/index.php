@@ -82,7 +82,7 @@ $us_id = us_id();
                 <p><strong>Shorten the URL of a specific Shopee page</strong></p>
                 <div class="form-group mb-2">
                     <label class="control-label pr-1" for="customLink_original_url"><span style="color:#ff4d4f">*</span> Original URL</label>
-                    <input type="text" name="customLink_original_url" id="customLink_original_url" class="form-control" value="" placeholder="Paste page URL here. i.e: https://shopee.vn/m/world-milk-day/">
+                    <input type="text" name="customLink_original_url" id="customLink_original_url" class="form-control" value="" placeholder="Paste page URL here. i.e: https://shopee.com.my/product/334425154/8200081234">
                 </div>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Tracking parameters

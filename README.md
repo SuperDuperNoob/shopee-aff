@@ -1,8 +1,8 @@
-# Shopee Affiliate API Documentation
+# Shopee Affiliate API Documentation (Malaysia)
 
-> A practical reference for Shopee Affiliate's official APIs for retrieving offers, generating affiliate links, and tracking conversions.
+> A practical reference for Shopee Affiliate's official APIs for retrieving offers, generating affiliate links, and tracking conversions — researched against Shopee Malaysia (`shopee.com.my`).
 
-**Official source:** <https://affiliate.shopee.vn/open_api/list>
+**Official source:** <https://affiliate.shopee.com.my/open_api/list>
 
 > **New:** Want to understand how this repo works internally? See [Reverse Engineering Guide](REVERSE_ENGINEERING.md) — includes auto-analysis tools (`tools/re-analyzer.js`), auth-flow tracer (`tools/trace-signature.js`), security scanner, and deep dives in `docs/reverse-engineering/`.
 
@@ -22,7 +22,9 @@
 
 ## Scope
 
-This document covers Shopee Affiliate's **official** Open API (GraphQL and REST). The unofficial Product Data API is documented separately in [`product-data-api.md`](product-data-api.md).
+This document covers Shopee Affiliate's **official** Open API (GraphQL and REST), researched against **Shopee Malaysia (`shopee.com.my`)**. Each Shopee market runs its own affiliate stack — the Malaysia portal is `affiliate.shopee.com.my` and the Malaysia GraphQL host is `open-api.affiliate.shopee.com.my`. Other markets use the same API surface with their own domains (for example, `affiliate.shopee.vn` for Vietnam).
+
+The unofficial Product Data API is documented separately in [`product-data-api.md`](product-data-api.md).
 
 Covered API groups:
 
@@ -41,7 +43,7 @@ Covered API groups:
 
 Before using these APIs, you need:
 
-1. A **Shopee Affiliate account**, available from [Shopee Affiliate Vietnam](https://affiliate.shopee.vn/).
+1. A **Shopee Affiliate account**, available from [Shopee Affiliate Malaysia](https://affiliate.shopee.com.my/).
 2. An **`app_id` and `secret_key`**, issued by Shopee and used to authenticate API requests.
 3. An **`access_token`** for APIs that require access to an individual account.
 4. A **`signature`**, generated from the `secret_key` and request parameters.
@@ -63,7 +65,7 @@ Returns details for a product ID, including its price, stock, description, and i
 | `affiliate_link` | `boolean` | No | Whether to include an affiliate link. |
 
 ```bash
-curl -X GET "https://open.shopee.vn/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654" \
+curl -X GET "https://open.shopee.com.my/openapi/product/v2/product_item_get?item_id=123456789&shop_id=987654" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -150,10 +152,10 @@ A GraphQL mutation that converts an ordinary Shopee URL into a short affiliate U
 The result is a `ShortLinkResult!` containing `shortLink`.
 
 ```bash
-curl -X POST 'https://open-api.affiliate.shopee.vn/graphql' \
+curl -X POST 'https://open-api.affiliate.shopee.com.my/graphql' \
   -H 'Authorization: SHA256 Credential=123456, Signature=YOUR_SIGNATURE, Timestamp=1577836800' \
   -H 'Content-Type: application/json' \
-  --data-raw '{"query":"mutation { generateShortLink(input: { originUrl: \"https://shopee.vn/product/52377417/6309028319\", subIds: [\"s1\", \"s2\"] }) { shortLink } }"}'
+  --data-raw '{"query":"mutation { generateShortLink(input: { originUrl: \"https://shopee.com.my/product/334425154/8200081234\", subIds: [\"s1\", \"s2\"] }) { shortLink } }"}'
 ```
 
 ```json
@@ -214,7 +216,7 @@ Its structures are similar to `ConversionReport`, `ConversionReportOrder`, and `
 | `10032` | Invalid affiliate ID. |
 | `10033` | Account frozen. |
 | `10034` | Affiliate ID is blocklisted. |
-| `10035` | The account cannot access the platform. [Contact Shopee](https://help.shopee.vn/portal/webform/c2d6ebc5a2d64dd1b26f8c871730cdbd). |
+| `10035` | The account cannot access the platform. [Contact Shopee](https://help.shopee.com.my/portal/webform/99dbea1dc4894accae65f606c2f91af5). |
 
 ## Version history
 

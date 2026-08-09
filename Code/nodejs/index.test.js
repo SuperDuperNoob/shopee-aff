@@ -23,7 +23,7 @@ test("buildAuthorization creates expected SHA256 header", () => {
 });
 
 test("buildPayload supports generateShortLink and injects input URL", () => {
-    const inputUrl = "https://shopee.vn/product/38003654/1589295236";
+    const inputUrl = "https://shopee.com.my/product/334425154/8200081234";
     const payload = buildPayload("generateShortLink", inputUrl);
     const parsed = JSON.parse(payload);
 
@@ -33,7 +33,7 @@ test("buildPayload supports generateShortLink and injects input URL", () => {
 
 test("buildPayload throws for unsupported apiName", () => {
     assert.throws(
-        () => buildPayload("unknownApi", "https://shopee.vn"),
+        () => buildPayload("unknownApi", "https://shopee.com.my"),
         /Unsupported api name/,
     );
 });

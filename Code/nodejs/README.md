@@ -19,7 +19,7 @@ SHOPEE_API_SECRET=your_real_api_secret
 npm run start
 ```
 
-The script builds a GraphQL payload, creates a SHA-256 signature in Shopee's Authorization format, and calls `https://open-api.affiliate.shopee.vn/graphql`.
+The script builds a GraphQL payload, creates a SHA-256 signature in Shopee's Authorization format, and calls `https://open-api.affiliate.shopee.com.my/graphql`.
 
 ## Available APIs (`apiName` argument)
 
@@ -35,7 +35,7 @@ The script builds a GraphQL payload, creates a SHA-256 signature in Shopee's Aut
 ```bash
 node index.js shopeeOfferV2
 node index.js productOfferV2
-node index.js generateShortLink "https://shopee.vn/product/38003654/1589295236"
+node index.js generateShortLink "https://shopee.com.my/product/334425154/8200081234"
 node index.js conversionReportV2
 node index.js validationReportV2
 ```

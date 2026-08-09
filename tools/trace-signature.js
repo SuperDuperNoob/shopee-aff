@@ -4,7 +4,7 @@
  * Helps you RE the auth flow.
  *
  * Usage:
- *  node tools/trace-signature.js --appId 123456 --secret mysecret --url https://shopee.vn/product/38003654/1589295236
+ *  node tools/trace-signature.js --appId 123456 --secret mysecret --url https://shopee.com.my/product/334425154/8200081234
  *  node tools/trace-signature.js --appId demo --secret demo --api productOfferV2
  */
 
@@ -59,7 +59,7 @@ mutation {
 }
 
 function main() {
-  const { appId = "123456", secret = "secret_key", url = "https://shopee.vn/product/38003654/1589295236", api = "generateShortLink" } = parseArgs();
+  const { appId = "123456", secret = "secret_key", url = "https://shopee.com.my/product/334425154/8200081234", api = "generateShortLink" } = parseArgs();
 
   console.log("== Shopee Affiliate Signature Tracer ==\n");
   console.log(`Inputs:\n  appId: ${appId}\n  secret: ${secret}\n  api: ${api}\n  url: ${url}\n`);
@@ -90,7 +90,7 @@ function main() {
   console.log(authHeader);
 
   console.log("\nStep 6: Curl (dry run, won't execute without valid creds)\n----------------------------------------");
-  console.log(`curl -X POST 'https://open-api.affiliate.shopee.vn/graphql' \\
+  console.log(`curl -X POST 'https://open-api.affiliate.shopee.com.my/graphql' \\
   -H 'Authorization: ${authHeader}' \\
   -H 'Content-Type: application/json' \\
   --data-raw '${payload.replace(/'/g, "'\\''")}'`);

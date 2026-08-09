@@ -30,7 +30,7 @@ graph LR
   LinkPHP[link.php] --> Conn
   LinkPHP --> Func
 
-  Func --> ShopeeAPI[shopee_aff_api -> open-api.affiliate.shopee.vn]
+  Func --> ShopeeAPI[shopee_aff_api -> open-api.affiliate.shopee.com.my]
   Func --> DB[(MySQL optional)]
 
   NodeJS[Code/nodejs/index.js] --> NodeCrypto[crypto SHA256]
@@ -39,7 +39,7 @@ graph LR
   NodePHP --> ShopeeAPI
 
   Postman[Postman Collection] --> UnofficialAPI[data.addlivetag.com]
-  UnofficialAPI --> ShopeeV4[shopee.vn/api/v4/item/get]
+  UnofficialAPI --> ShopeeV4[shopee.com.my/api/v4/item/get]
 ```
 MERMAID
 
