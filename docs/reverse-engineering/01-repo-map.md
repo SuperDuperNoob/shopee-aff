@@ -17,12 +17,19 @@
 │   ├── README.md           Overview of wrappers
 │   ├── nodejs/
 │   │   ├── index.js       Clean reference impl + exports for testing
-│   │   ├── index.test.js  Tests for signature + payload
+│   │   ├── index.test.js  Tests for signature + payload + portal template
 │   │   ├── package.json   No deps
+│   │   ├── portal-link.template.json   Example portal short-link template (cookie mode)
 │   │   └── .env.example
 │   └── php/
 │       ├── index.php      Same as nodejs but PHP/cURL
 │       └── .env.example
+├── tools/
+│   ├── trace-portal-link.js   Capture & replay the portal's internal short-link API
+│   ├── re-analyzer.js         Static RE analyzer
+│   ├── trace-signature.js     Signature tracer
+│   ├── re-graph.sh            Dependency graph
+│   └── security-scan.sh       Grep-based security audit
 └── Postman/
     ├── Shopee-Product-Data.postman_collection.json
     └── Shopee-Product-Data.postman_environment.json
@@ -31,10 +38,15 @@
 ## Logical modules
 
 ### Module A: Official API wrappers (Code/*)
-- **Input:** `apiName` string + optional `originUrl` for short link (credential mode); or `item_id`/`shop_id` (cookie mode)
-- **Process:** load .env -> if `SHOPEE_API_APP_ID`+`SHOPEE_API_SECRET` set: build GraphQL JSON -> timestamp -> SHA256(appId+ts+payload+secret) -> Authorization header -> fetch/curl POST -> JSON response. Else if `SHOPEE_COOKIE` set: Cookie header (+ optional `X-CSRFToken`) -> GET `shopee.com.my/api/v4/pdp/get_pc` -> JSON.
+- **Input:** `apiName` string + optional `originUrl` for short link (credential mode); or `item_id`/`shop_id` / `shortLink <originUrl> [subIds]` (cookie mode)
+- **Process:** load .env -> if `SHOPEE_API_APP_ID`+`SHOPEE_API_SECRET` set: build GraphQL JSON -> timestamp -> SHA256(appId+ts+payload+secret) -> Authorization header -> fetch/curl POST -> JSON response. Else if `SHOPEE_COOKIE` set: Cookie header (+ optional `X-CSRFToken`) -> GET `shopee.com.my/api/v4/pdp/get_pc` (product) or replay the portal short-link template (`{{originUrl}}`/`{{subIds}}` substitution, see `06-portal-short-link.md`).
 - **Output:** `{api, auth, httpCode, response}` (auth is `credentials` or `cookie`)
-- **Why it exists:** Demonstrates official way, testable, no UI; also supports cookie/session auth (see `COOKIE_AUTH.md`).
+- **Why it exists:** Demonstrates official way, testable, no UI; also supports cookie/session auth (see `COOKIE_AUTH.md`), including cookie-mode affiliate short links with subIDs.
+
+### Module D: Portal short-link RE tooling (tools/trace-portal-link.js)
+- **User story:** Affiliate generates links in the portal UI (no Open API creds); we capture that one XHR and replay it with the session cookie.
+- **Process:** DevTools "Copy as cURL" -> `--capture` parses it (quotes, ANSI-C `$'...'`, multiline) -> template with `{{originUrl}}`/`{{subIds}}`/`{{cookie}}`/`{{csrfToken}}` placeholders -> `--dry-run`/`--replay` with `SHOPEE_COOKIE`.
+- **Secrets:** cookie/CSRF never written into templates; redacted in output unless `--show-secrets`.
 
 ### Module B: Custom Link App (bc-custom-link/*)
 - **User story:** Affiliate pastes Shopee URL, adds up to 5 subIds for tracking, clicks Create, gets `https://shp.ee/...`
@@ -52,8 +64,9 @@
 
 | Path | Entry | How invoked |
 |------|-------|-------------|
-| `Code/nodejs/index.js` | `callShopeeApi()` | `node index.js <apiName> <url>` |
-| `Code/php/index.php` | top-level `try` | `php index.php <apiName> <url>` |
+| `Code/nodejs/index.js` | `callShopeeApi()` | `node index.js <apiName> <url>`; cookie: `node index.js <itemId> [shopId]` or `node index.js shortLink <url> [subId...]` |
+| `Code/php/index.php` | top-level `try` | `php index.php <apiName> <url>`; cookie: `php index.php <itemId> [shopId]` or `php index.php shortLink <url> [subId...]` |
+| `tools/trace-portal-link.js` | `main()` | `node tools/trace-portal-link.js --capture '<cURL>' [--out template.json]` or `--replay --template <file> --url <originUrl> [--subid ...]` |
 | `bc-custom-link/index.php` | `session_start() + us_id()` | Browser GET |
 | `bc-custom-link/link.php` | `if $_POST['tp']` | AJAX POST from index.php |
 

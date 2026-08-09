@@ -40,6 +40,11 @@ graph LR
 
   Postman[Postman Collection] --> UnofficialAPI[data.addlivetag.com]
   UnofficialAPI --> ShopeeV4[shopee.com.my/api/v4/item/get]
+
+  TracePortal[tools/trace-portal-link.js] -->|--capture| CurlCapture[DevTools Copy as cURL]
+  TracePortal -->|--out| Template[portal-link.template.json]
+  Template --> Samples[Code samples shortLink (cookie mode)]
+  Samples --> PortalAPI[affiliate portal internal API]
 ```
 MERMAID
 
@@ -53,6 +58,8 @@ echo "5. Code/nodejs/index.js — clean reference impl"
 echo "6. Code/php/index.php — same in PHP"
 echo "7. product-data-api.md — external unofficial API spec"
 echo "8. README.md — official docs"
+echo "9. tools/trace-portal-link.js — portal short-link capture/replay (cookie mode)"
+echo "10. docs/reverse-engineering/06-portal-short-link.md — walkthrough"
 
 echo ""
 echo "=== Generate auto-report via Node ==="

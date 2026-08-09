@@ -167,6 +167,152 @@ function buildWebHeaders(array $env): array
     return $headers;
 }
 
+// ---------------------------------------------------------------------------
+// Cookie-mode short-link generation (affiliate portal web API)
+//
+// The affiliate portal's browser UI generates affiliate short links (with
+// subIDs) through an internal, undocumented web API — no app_id/secret_key
+// needed. Replay that exact request using your session cookie. Capture the
+// real request once with tools/trace-portal-link.js and point
+// SHOPEE_WEB_LINK_TEMPLATE at the resulting JSON (see
+// docs/reverse-engineering/06-portal-short-link.md).
+// ---------------------------------------------------------------------------
+
+// Fallback template used when no template file exists yet. The portal endpoint
+// is per-market and undocumented — replace the placeholder URL with a capture.
+const PORTAL_LINK_TEMPLATE_DEFAULT = [
+    'name' => 'portal-short-link',
+    'method' => 'POST',
+    'url' => 'https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT',
+    'headers' => [
+        'Accept' => 'application/json, text/plain, */*',
+        'Content-Type' => 'application/json;charset=UTF-8',
+        'Origin' => 'https://affiliate.shopee.com.my',
+        'Referer' => 'https://affiliate.shopee.com.my/',
+        'X-CSRFToken' => '{{csrfToken}}',
+        'Cookie' => '{{cookie}}',
+    ],
+    'body' => '{"originUrl":"{{originUrl}}","subIds":{{subIds}}}',
+];
+
+// Fill the {{placeholders}} of a portal request template.
+function applyTemplate(array $template, array $vars): array
+{
+    $sub = static function (string $s) use ($vars): string {
+        return str_replace(
+            ['{{originUrl}}', '{{subIds}}', '{{subIdsCsv}}', '{{csrfToken}}', '{{cookie}}'],
+            [
+                $vars['originUrl'] ?? '',
+                json_encode($vars['subIds'] ?? [], JSON_UNESCAPED_SLASHES),
+                implode(',', $vars['subIds'] ?? []),
+                $vars['csrfToken'] ?? '',
+                $vars['cookie'] ?? '',
+            ],
+            $s
+        );
+    };
+
+    $headers = [];
+    foreach (($template['headers'] ?? []) as $k => $v) {
+        $headers[] = $k . ': ' . $sub((string) $v);
+    }
+
+    return [
+        'method' => strtoupper((string) ($template['method'] ?? 'POST')),
+        'url' => $sub((string) $template['url']),
+        'headers' => $headers,
+        'body' => $sub((string) ($template['body'] ?? '')),
+    ];
+}
+
+function isPlaceholderUrl(string $url): bool
+{
+    return str_contains($url, 'REPLACE_ME');
+}
+
+function loadPortalTemplate(array $env): array
+{
+    $rel = $env['SHOPEE_WEB_LINK_TEMPLATE'] ?? 'portal-link.template.json';
+    $path = $rel !== '' && $rel[0] === '/' ? $rel : __DIR__ . '/' . $rel;
+    if (file_exists($path)) {
+        $decoded = json_decode((string) file_get_contents($path), true);
+        if (!is_array($decoded)) {
+            throw new RuntimeException("Invalid portal link template file: {$path}");
+        }
+        return $decoded;
+    }
+    return PORTAL_LINK_TEMPLATE_DEFAULT;
+}
+
+// Cookie-mode short link: replay the portal's own request with your session
+// cookie. Usage: php index.php shortLink <originUrl> [subId1 subId2 ...]
+function callShopeeWebShortLink(array $env): array
+{
+    $argv = $GLOBALS['argv'] ?? [];
+    $originUrl = $argv[2] ?? ($env['SHOPEE_ORIGIN_URL'] ?? '');
+    $subIds = array_values(array_filter(array_slice($argv, 3)));
+    if (!empty($env['SHOPEE_SUB_IDS'])) {
+        $subIds = array_merge($subIds, explode(',', $env['SHOPEE_SUB_IDS']));
+    }
+    $subIds = array_slice(array_values(array_filter(array_map('trim', $subIds))), 0, 5);
+
+    if ($originUrl === '') {
+        throw new RuntimeException(
+            'Cookie shortLink mode needs an originUrl. Pass it as the second argument or set SHOPEE_ORIGIN_URL in .env'
+        );
+    }
+    $cookie = $env['SHOPEE_COOKIE'] ?? '';
+    if ($cookie === '') {
+        throw new RuntimeException('SHOPEE_COOKIE is required for cookie/session authentication');
+    }
+
+    $req = applyTemplate(loadPortalTemplate($env), [
+        'originUrl' => $originUrl,
+        'subIds' => $subIds,
+        'cookie' => $cookie,
+        'csrfToken' => $env['SHOPEE_CSRF_TOKEN'] ?? '',
+    ]);
+
+    if (isPlaceholderUrl($req['url'])) {
+        throw new RuntimeException(
+            "The portal short-link template still uses the placeholder URL. Capture the real request first:\n" .
+            "  node tools/trace-portal-link.js --capture '<pasted cURL>' --out portal-link.template.json\n" .
+            'See docs/reverse-engineering/06-portal-short-link.md.'
+        );
+    }
+
+    $ch = curl_init($req['url']);
+    $opts = [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTPHEADER => $req['headers'],
+    ];
+    if ($req['method'] === 'POST') {
+        $opts[CURLOPT_POST] = true;
+        $opts[CURLOPT_POSTFIELDS] = $req['body'];
+    }
+    curl_setopt_array($ch, $opts);
+
+    $response = curl_exec($ch);
+    $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error = curl_error($ch);
+    curl_close($ch);
+
+    if ($response === false) {
+        throw new RuntimeException('cURL error: ' . $error);
+    }
+
+    $decoded = json_decode($response, true);
+
+    return [
+        'api' => 'web/portal-short-link',
+        'auth' => 'cookie',
+        'url' => $req['url'],
+        'http_code' => $httpCode,
+        'response' => is_array($decoded) ? $decoded : $response,
+    ];
+}
+
 // Cookie/session mode: read a product from Shopee's web API using a logged-in
 // browser cookie instead of app_id/secret_key credentials.
 function callShopeeWebApi(array $env): array
@@ -228,7 +374,11 @@ try {
         $result['api'] = $GLOBALS['argv'][1] ?? 'shopeeOfferV2';
         $result['auth'] = 'credentials';
     } elseif ($cookie !== '') {
-        $result = callShopeeWebApi($env);
+        if (($GLOBALS['argv'][1] ?? '') === 'shortLink') {
+            $result = callShopeeWebShortLink($env);
+        } else {
+            $result = callShopeeWebApi($env);
+        }
     } else {
         throw new RuntimeException(
             'Missing auth config in .env. Use SHOPEE_API_APP_ID + SHOPEE_API_SECRET (credentials) or SHOPEE_COOKIE (session cookie). See Code/php/README.md and COOKIE_AUTH.md.'
@@ -243,6 +393,8 @@ try {
     echo json_encode([
         'success' => false,
         'error' => $e->getMessage(),
-        'usage' => 'php index.php [apiName] [originUrl-for-generateShortLink]  (credentials) | php index.php [itemId] [shopId]  (cookie mode)',
+        'usage' => "php index.php [apiName] [originUrl-for-generateShortLink]  (credentials)\n" .
+            "php index.php [itemId] [shopId]                          (cookie mode, product)\n" .
+            "php index.php shortLink <originUrl> [subId1 subId2 ...]  (cookie mode, short link)",
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }

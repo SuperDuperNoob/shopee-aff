@@ -19,4 +19,4 @@ This directory contains examples for calling the Shopee Affiliate Open API (Grap
 - These examples use Shopee Affiliate's official API.
 - Cookie / session authentication (browser `SPC_F` cookie) is documented in `COOKIE_AUTH.md`.
 - The unofficial Product Data API is documented in `product-data-api.md`.
-- The samples support `shopeeOfferV2`, `brandOfferV2`, `productOfferV2`, `generateShortLink`, `conversionReportV2`, and `validationReportV2` (credential mode), plus a web product lookup (cookie mode).
+- The samples support `shopeeOfferV2`, `brandOfferV2`, `productOfferV2`, `generateShortLink`, `conversionReportV2`, and `validationReportV2` (credential mode), plus a web product lookup (cookie mode) and a `shortLink` subcommand (cookie mode) that replays the affiliate portal's internal short-link API to generate affiliate links with subIDs — no Open API credentials. See [`docs/reverse-engineering/06-portal-short-link.md`](../docs/reverse-engineering/06-portal-short-link.md) and [`tools/trace-portal-link.js`](../tools/trace-portal-link.js).

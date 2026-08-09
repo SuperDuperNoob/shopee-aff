@@ -7,6 +7,8 @@
 > **New:** Want to understand how this repo works internally? See [Reverse Engineering Guide](REVERSE_ENGINEERING.md) — includes auto-analysis tools (`tools/re-analyzer.js`), auth-flow tracer (`tools/trace-signature.js`), security scanner, and deep dives in `docs/reverse-engineering/`.
 
 > **Auth alternatives:** this repo supports two ways to authenticate — **credentials** (`app_id` + `secret_key`, official Open API) and **cookie / session** (a logged-in browser `SPC_F` cookie, for Shopee's web endpoints). See the [Cookie / Session Authentication Guide](COOKIE_AUTH.md).
+>
+> **Cookie-mode short links:** with a session cookie you can also generate **affiliate short links with subIDs** by replaying the affiliate portal's own (unofficial) web API — no `app_id`/`secret_key` approval needed. Capture the request once with [`tools/trace-portal-link.js`](tools/trace-portal-link.js), then use the `shortLink` subcommand in the samples. Full walkthrough: [06-portal-short-link.md](docs/reverse-engineering/06-portal-short-link.md).
 
 ## Contents
 

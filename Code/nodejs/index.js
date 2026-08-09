@@ -123,11 +123,155 @@ export function buildWebHeaders(env) {
     return headers;
 }
 
+// ---------------------------------------------------------------------------
+// Cookie-mode short-link generation (affiliate portal web API)
+//
+// The affiliate portal's browser UI generates affiliate short links (with
+// subIDs) through an internal, undocumented web API — no app_id/secret_key
+// needed. This section replays that exact request using your session cookie.
+// Capture the real request once with tools/trace-portal-link.js and save it
+// as a template (default: portal-link.template.json next to this file, or
+// SHOPEE_WEB_LINK_TEMPLATE). See docs/reverse-engineering/06-portal-short-link.md.
+// ---------------------------------------------------------------------------
+
+// Fallback template used when no template file exists yet. The portal endpoint
+// is per-market and undocumented — replace the placeholder URL with a capture.
+export const DEFAULT_PORTAL_LINK_TEMPLATE = {
+    name: "portal-short-link",
+    method: "POST",
+    url: "https://affiliate.shopee.com.my/api/REPLACE_ME_SHORT_LINK_ENDPOINT",
+    headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json;charset=UTF-8",
+        Origin: "https://affiliate.shopee.com.my",
+        Referer: "https://affiliate.shopee.com.my/",
+        "X-CSRFToken": "{{csrfToken}}",
+        Cookie: "{{cookie}}",
+    },
+    body: '{"originUrl":"{{originUrl}}","subIds":{{subIds}}}',
+};
+
+// Fill the {{placeholders}} of a portal request template.
+//   {{originUrl}}  -> the Shopee URL to shorten
+//   {{subIds}}     -> JSON array of subIDs
+//   {{subIdsCsv}}  -> comma-separated subIDs (for form-encoded bodies)
+//   {{cookie}}     -> session cookie (from SHOPEE_COOKIE)
+//   {{csrfToken}}  -> CSRF token (from SHOPEE_CSRF_TOKEN)
+export function applyTemplate(template, vars) {
+    const sub = (s) =>
+        String(s ?? "")
+            .replaceAll("{{originUrl}}", vars.originUrl ?? "")
+            .replaceAll("{{subIds}}", JSON.stringify(vars.subIds ?? []))
+            .replaceAll("{{subIdsCsv}}", (vars.subIds ?? []).join(","))
+            .replaceAll("{{csrfToken}}", vars.csrfToken ?? "")
+            .replaceAll("{{cookie}}", vars.cookie ?? "");
+
+    const headers = {};
+    for (const [k, v] of Object.entries(template.headers ?? {})) {
+        headers[k] = sub(v);
+    }
+
+    return {
+        method: String(template.method ?? "POST").toUpperCase(),
+        url: sub(template.url),
+        headers,
+        body: sub(template.body ?? ""),
+    };
+}
+
+export function isPlaceholderUrl(url) {
+    return /REPLACE_ME/.test(String(url));
+}
+
+// Load the portal request template: SHOPEE_WEB_LINK_TEMPLATE path if set,
+// otherwise `portal-link.template.json` next to this file; falls back to
+// DEFAULT_PORTAL_LINK_TEMPLATE when neither exists.
+export function loadPortalTemplate(env, baseDir = __dirname) {
+    const rel = env.SHOPEE_WEB_LINK_TEMPLATE || "portal-link.template.json";
+    const p = path.isAbsolute(rel) ? rel : path.join(baseDir, rel);
+    if (fs.existsSync(p)) {
+        return JSON.parse(fs.readFileSync(p, "utf8"));
+    }
+    return DEFAULT_PORTAL_LINK_TEMPLATE;
+}
+
+// Cookie-mode short link: replay the portal's own request with your session
+// cookie. Usage: node index.js shortLink <originUrl> [subId1 subId2 ...]
+async function callShopeeWebShortLink(env) {
+    const originUrl = process.argv[3] || env.SHOPEE_ORIGIN_URL || "";
+    const subIds = [...process.argv.slice(4), ...(env.SHOPEE_SUB_IDS || "").split(",")]
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .slice(0, 5);
+
+    if (!originUrl) {
+        throw new Error(
+            "Cookie shortLink mode needs an originUrl. Pass it as the second argument or set SHOPEE_ORIGIN_URL in .env",
+        );
+    }
+    if (!env.SHOPEE_COOKIE) {
+        throw new Error("SHOPEE_COOKIE is required for cookie/session authentication");
+    }
+
+    const template = loadPortalTemplate(env);
+    const req = applyTemplate(template, {
+        originUrl,
+        subIds,
+        cookie: env.SHOPEE_COOKIE,
+        csrfToken: env.SHOPEE_CSRF_TOKEN || "",
+    });
+
+    if (isPlaceholderUrl(req.url)) {
+        throw new Error(
+            "The portal short-link template still uses the placeholder URL. Capture the real request first:\n" +
+            "  node tools/trace-portal-link.js --capture '<pasted cURL>' --out portal-link.template.json\n" +
+            "See docs/reverse-engineering/06-portal-short-link.md.",
+        );
+    }
+
+    const response = await fetch(req.url, {
+        method: req.method,
+        headers: req.headers,
+        body: req.method === "GET" ? undefined : req.body,
+    });
+    const text = await response.text();
+    let json = null;
+    try {
+        json = JSON.parse(text);
+    } catch {
+        // not JSON — return raw text
+    }
+
+    return {
+        api: "web/portal-short-link",
+        auth: "cookie",
+        url: req.url,
+        httpCode: response.status,
+        response: json ?? text,
+    };
+}
+
+// Resolve item_id / shop_id for cookie-mode product lookup. Supports both
+// `node index.js <itemId> [shopId]` (legacy) and
+// `node index.js product <itemId> [shopId]` (explicit subcommand).
+export function cookieModeArgs(env, argv = process.argv) {
+    const first = argv[2] || "";
+    if (first === "product") {
+        return {
+            itemId: argv[3] || env.SHOPEE_ITEM_ID || "",
+            shopId: argv[4] || env.SHOPEE_SHOP_ID || "",
+        };
+    }
+    return {
+        itemId: first || env.SHOPEE_ITEM_ID || "",
+        shopId: argv[3] || env.SHOPEE_SHOP_ID || "",
+    };
+}
+
 // Cookie/session mode: read a product from Shopee's web API using a logged-in
 // browser cookie instead of app_id/secret_key credentials.
 async function callShopeeWebApi(env) {
-    const itemId = process.argv[2] || env.SHOPEE_ITEM_ID || "";
-    const shopId = process.argv[3] || env.SHOPEE_SHOP_ID || "";
+    const { itemId, shopId } = cookieModeArgs(env);
 
     if (!itemId) {
         throw new Error(
@@ -197,6 +341,11 @@ export async function callShopeeApi() {
     }
 
     if (env.SHOPEE_COOKIE) {
+        // Cookie mode: `shortLink` subcommand replays the affiliate portal's
+        // internal short-link API; anything else is a product lookup.
+        if (process.argv[2] === "shortLink") {
+            return callShopeeWebShortLink(env);
+        }
         return callShopeeWebApi(env);
     }
 
@@ -218,7 +367,10 @@ if (isDirectRun) {
                     {
                         success: false,
                         error: error.message,
-                        usage: "node index.js [apiName] [originUrl-for-generateShortLink]  (credentials) | node index.js [itemId] [shopId]  (cookie mode)",
+                        usage: "node index.js [apiName] [originUrl-for-generateShortLink]  (credentials)\n" +
+                            "       node index.js [itemId] [shopId]                          (cookie mode, product)\n" +
+                            "       node index.js product <itemId> [shopId]                  (cookie mode, product)\n" +
+                            "       node index.js shortLink <originUrl> [subId1 subId2 ...]  (cookie mode, short link)",
                     },
                     null,
                     2,

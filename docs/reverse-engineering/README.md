@@ -11,5 +11,6 @@ This folder contains modular deep-dives referenced from `/REVERSE_ENGINEERING.md
 - `03-bc-custom-link-deep-dive.md` — full audit of custom link app
 - `04-unofficial-api.md` — how product-data-api.md was likely RE'd + how to continue
 - `05-methodology-cheatsheet.md` — 1-page checklist you can reuse for any repo
+- `06-portal-short-link.md` — capture & replay the portal's internal short-link API (cookie-mode affiliate links with subIDs)
 
 Start with `/REVERSE_ENGINEERING.md` at repo root for full guide.
