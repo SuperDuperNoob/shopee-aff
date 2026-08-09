@@ -31,10 +31,10 @@
 ## Logical modules
 
 ### Module A: Official API wrappers (Code/*)
-- **Input:** `apiName` string + optional `originUrl` for short link
-- **Process:** load .env -> build GraphQL JSON -> timestamp -> SHA256(appId+ts+payload+secret) -> Authorization header -> fetch/curl POST -> JSON response
-- **Output:** `{api, httpCode, response}`
-- **Why it exists:** Demonstrates official way, testable, no UI.
+- **Input:** `apiName` string + optional `originUrl` for short link (credential mode); or `item_id`/`shop_id` (cookie mode)
+- **Process:** load .env -> if `SHOPEE_API_APP_ID`+`SHOPEE_API_SECRET` set: build GraphQL JSON -> timestamp -> SHA256(appId+ts+payload+secret) -> Authorization header -> fetch/curl POST -> JSON response. Else if `SHOPEE_COOKIE` set: Cookie header (+ optional `X-CSRFToken`) -> GET `shopee.com.my/api/v4/pdp/get_pc` -> JSON.
+- **Output:** `{api, auth, httpCode, response}` (auth is `credentials` or `cookie`)
+- **Why it exists:** Demonstrates official way, testable, no UI; also supports cookie/session auth (see `COOKIE_AUTH.md`).
 
 ### Module B: Custom Link App (bc-custom-link/*)
 - **User story:** Affiliate pastes Shopee URL, adds up to 5 subIds for tracking, clicks Create, gets `https://shp.ee/...`

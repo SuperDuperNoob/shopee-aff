@@ -6,6 +6,8 @@
 
 > **New:** Want to understand how this repo works internally? See [Reverse Engineering Guide](REVERSE_ENGINEERING.md) — includes auto-analysis tools (`tools/re-analyzer.js`), auth-flow tracer (`tools/trace-signature.js`), security scanner, and deep dives in `docs/reverse-engineering/`.
 
+> **Auth alternatives:** this repo supports two ways to authenticate — **credentials** (`app_id` + `secret_key`, official Open API) and **cookie / session** (a logged-in browser `SPC_F` cookie, for Shopee's web endpoints). See the [Cookie / Session Authentication Guide](COOKIE_AUTH.md).
+
 ## Contents
 
 - [Scope](#scope)
@@ -47,6 +49,8 @@ Before using these APIs, you need:
 2. An **`app_id` and `secret_key`**, issued by Shopee and used to authenticate API requests.
 3. An **`access_token`** for APIs that require access to an individual account.
 4. A **`signature`**, generated from the `secret_key` and request parameters.
+
+> **No API credentials?** You can instead authenticate to Shopee's **web endpoints** using a logged-in browser **session cookie** (e.g. `SPC_F`). See the [Cookie / Session Authentication Guide](COOKIE_AUTH.md). The [`Code/nodejs`](Code/nodejs/README.md) and [`Code/php`](Code/php/README.md) samples support both modes.
 
 ## API endpoints
 

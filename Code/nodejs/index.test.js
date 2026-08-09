@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
 
-import { buildAuthorization, buildPayload } from "./index.js";
+import { buildAuthorization, buildPayload, buildWebHeaders } from "./index.js";
 
 test("buildAuthorization creates expected SHA256 header", () => {
     const appId = "123456";
@@ -36,4 +36,23 @@ test("buildPayload throws for unsupported apiName", () => {
         () => buildPayload("unknownApi", "https://shopee.com.my"),
         /Unsupported api name/,
     );
+});
+
+test("buildWebHeaders sends Cookie header and browser-like headers", () => {
+    const env = { SHOPEE_COOKIE: "SPC_F=abc; csrftoken=xyz", SHOPEE_CSRF_TOKEN: "xyz" };
+    const headers = buildWebHeaders(env);
+
+    assert.equal(headers["Cookie"], "SPC_F=abc; csrftoken=xyz");
+    assert.equal(headers["X-CSRFToken"], "xyz");
+    assert.equal(headers["x-api-source"], "pc");
+    assert.match(headers["User-Agent"], /Chrome\/120\.0\.0\.0/);
+});
+
+test("buildWebHeaders omits X-CSRFToken when not provided", () => {
+    const headers = buildWebHeaders({ SHOPEE_COOKIE: "SPC_F=abc" });
+    assert.equal(headers["X-CSRFToken"], undefined);
+});
+
+test("buildWebHeaders throws without SHOPEE_COOKIE", () => {
+    assert.throws(() => buildWebHeaders({}), /SHOPEE_COOKIE is required/);
 });

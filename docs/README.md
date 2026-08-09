@@ -1,6 +1,7 @@
 # Docs index
 
 - [Main README](../README.md) — Official API spec
+- [Cookie / Session Auth Guide](../COOKIE_AUTH.md) — Authenticate with a browser session cookie (`SPC_F`) instead of credentials
 - [Product Data API](../product-data-api.md) — Unofficial API spec
 - [Reverse Engineering Guide](../REVERSE_ENGINEERING.md) — **Start here to understand repo internals**
 - [Reverse Engineering Deep Dives](./reverse-engineering/) — Modular breakdowns
