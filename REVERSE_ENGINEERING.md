@@ -392,7 +392,91 @@ open tools/an_redir-generator.html  # or python3 -m http.server 8000 --directory
 
 ---
 
-## 7. Legal / Ethical Note
+## 7. Workarounds Without AppID / Secret (No L2 — No Open API)
+
+> **You have L1 (`affiliate_id`) but no L2 (`appId`/`secret`)?** You can still earn. This is the #1 RE finding from `docs/without-appid-workarounds.md` — condensed here for the guide. Full research + code recipes are in that doc; `Code/no-api/` and `tools/an_redir-generator.html` are runnable proof.
+
+### 7.1 Why two gates
+
+Shopee has **two approvals**: L1 Shopee Affiliate Program → `affiliate_id` (11–12 digits, e.g. `14382300002`, visible after 3–30 day review, 500 followers + public content commonly cited); L2 Open API → `appId`/`secret` for `https://open-api.affiliate.shopee.*/graphql` (separate 5–15 day review via dashboard → Open API, not auto-granted). This repo's wrappers (`Code/*`, `bc-custom-link/func.php:shopee_aff_api`) need L2; without it you get `10020`/`10031`. The workarounds below need only L1 (or a network account), yet still track the same 7-day cookie.
+
+### 7.2 TL;DR — Decision tree
+
+```
+Have affiliate_id (L1)?
+├─ NO  → fastest: join via Involve Asia / ACCESSTRADE → their deeplink generator (no Shopee direct needed)
+│        or fix application + use product-data proxy while waiting
+└─ YES → need code/scale? → an_redir (build URL yourself) ← start here
+         need manual few links? → Dashboard Custom Link / Convert Link OR Shopee app Share arrow
+         need reports/search? → apply for L2, use an_redir + unofficial data API while waiting
+```
+
+### 7.3 The `an_redir` discovery (recommended, official, zero API)
+
+Shopee **documents this itself** in Short Link Implementation Guidelines — SG `help.shopee.sg/portal/10/article/171184`, MY `help.shopee.com.my/portal/10/article/174050`, PH `help.shopee.ph/portal/10/article/172142`. It is not a scrape; partners *are expected* to build links this way when not using GraphQL. Community reference `crushedmonster/shopee-affiliate-link-generator` does exactly `an_redir?origin_link=…&affiliate_id=…&sub_id=…`.
+
+**What it is:** a redirector at `https://{domain}/an_redir` (`shope.ee` works globally, or `s.shopee.vn` / `s.shopee.sg` / `s.shopee.com.my` / `s.shopee.ph` / `s.shopee.co.id` / `s.shopee.co.th` / `s.shopee.com.br`). You give `origin_link` (RFC3986-encoded product URL) + `affiliate_id` + optional `sub_id` (up to 5 dash-joined `a-b-c-d-e`, charset `a-zA-Z0-9_-`). Shopee 302s with `utm_source=an_<id>` + `uls_trackid` and credits the same commission as `generateShortLink`.
+
+**Where to find your `affiliate_id` (no Open API):** Portal → Account/Settings/Profile; or generate one Custom Link and read `affiliate_id=`/`an_` in the result; or Shopee app → Me → Affiliate Program while logged in. Networks have separate IDs — don't mix.
+
+**Minimal build (same in JS/PHP/Python):**
+
+```js
+// JS / Node — see tools/generate-anredir-link.js
+function buildShopeeAffLink({ originUrl, affiliateId, subIds=[] }) {
+  const clean = originUrl.split('?')[0]; // strip stale sp_atk/xptdk/utm_*
+  const encoded = encodeURIComponent(clean);
+  const sub = subIds.filter(Boolean).slice(0,5).join('-');
+  const base = `https://shope.ee/an_redir?origin_link=${encoded}&affiliate_id=${affiliateId}`;
+  return sub ? `${base}&sub_id=${sub}` : base;
+}
+```
+```php
+// PHP — see Code/no-api/an_redir.php
+function buildShopeeAffLink($originUrl, $affiliateId, $subIds=[], $domain='https://shope.ee') {
+  $clean = explode('?', $originUrl)[0];
+  return rtrim($domain,'/').'/an_redir?origin_link='.rawurlencode($clean).'&affiliate_id='.$affiliateId.($subIds?'&sub_id='.implode('-',array_slice($subIds,0,5)):'');
+}
+```
+```bash
+# CLI in this repo
+node tools/generate-anredir-link.js --affiliate-id 14382300002 --url https://shopee.vn/product/38003654/1589295236 --sub-id tiktok --sub-id vid42
+# Browser (no server)
+open tools/an_redir-generator.html
+```
+
+**Short-link input:** if you start from `s.shopee.vn/xyz`, expand first (`fetch(url,{redirect:'follow'}).url` or `curl -Ls -w %{url_effective}` / `api/expand.js` in the community repo), then build `an_redir` from the expanded URL. Don't double-wrap.
+
+**Validate:** open result in incognito → should land on product → check portal Analytics/Conversion Report for `sub_id` within ~15–30 min.
+
+**Trade-off:** no `productOfferV2` search, no `conversionReport`/`validatedReport` via API, link longer than minted `shp.ee` unless you wrap with your own shortener (301/302 preserving query). For commission preview without L2, pair with `data.addlivetag.com` (see below).
+
+### 7.4 Other workarounds RE found
+
+| Path | Needs | How | When to use |
+|------|-------|-----|-------------|
+| **Dashboard Custom Link / Convert Link** | L1 | Portal → Custom Link → paste up to 5 URLs → Sub_id1..5 → Get Link → `shp.ee`; App → Me → Affiliate → Account → Convert Link | Manual one-offs, verifies eligibility |
+| **Shopee App Share** | L1 | Open product → share arrow → Copy Link (already tracked when logged as affiliate) | Zero setup, one-by-one |
+| **Involve Asia / ACCESSTRADE / Ecomobi** | No Shopee direct | Sign Publisher at `involve.asia` → Add Property (blog/TikTok/Telegram) → Search Shopee offer → Apply → Promotion → Deeplink Generator → paste Shopee URL → `invol.co/...` | Rejected by Shopee direct, or multi-brand (500+ advertisers), 3–7 day approval, lower follower bar |
+| **Unofficial Product Data API** | None | `https://data.addlivetag.com/product-data/product-data.php?item_id=1589295236` or `?url=` → `commission`/`sellerComFinal`/`priceStats` (cached 24h, 300/min API, 2000/min DB) — see `product-data-api.md` + `docs/reverse-engineering/04-unofficial-api.md` | Price/commission lookup without creds; combine with `an_redir` for full no-L2 stack |
+| **Team escrow** | Owner's L2 | Deploy `bc-custom-link` with `appId`/`secret` server-side (`link.php:50–51`), clients POST only `url`+`subIds` | Agency/MCN sharing without leaking secret |
+
+Full comparison, regional domain table, encoding/subId gotchas, approval checklist, and persona stacks are in `docs/without-appid-workarounds.md`.
+
+### 7.5 How this maps to the repo's RE
+
+- **Trust boundary:** `link.php`'s `stripos(host,'shopee.')` is intentionally weak (documented in `docs/reverse-engineering/03-*.md`) — for your own validator use suffix checks (`/\.shopee\.vn$/` etc.). `an_redir` adds a second validation: Shopee's redirector itself rejects non-Shopee `origin_link`.
+- **SubId flow:** `index.php:Date.now()` → `Sub_id5` + `us_id`→`Sub_id4` → `link.php: preg_replace([^a-zA-Z0-9_-])` → `short_link()` array → `generateShortLink` mutation; in `an_redir` the same array is dash-joined into `sub_id`.
+- **BC layer:** `Code/no-api/an_redir.php:buildShopeeAffLink()` is the L1-only mirror of `func.php:short_link()+shopee_aff_api()`.
+- **Lab to prove it:** `node tools/generate-anredir-link.js --affiliate-id <yours> --url <product> --sub-id test` → open link → dashboard click appears. No signature, no `10020`.
+
+### 7.6 Keep it compliant
+
+All paths still obey Shopee TOS: disclose affiliate, no cookie stuffing/misleading claims. `an_redir` is documented, not a bypass — bans come from TOS violations, not URL format. Keep `affiliate_id` out of Git; this repo stores it in `.env` / `localStorage` only.
+
+---
+
+## 8. Legal / Ethical Note
 
 - Official API (`open-api.affiliate.shopee.vn`) requires affiliate account — don't brute force.
 - Unofficial API (`shopee.vn/api/v4/...`) is Shopee's internal; respect TOS, rate limits, use caching.

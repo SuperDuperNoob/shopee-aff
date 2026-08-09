@@ -2,8 +2,8 @@
 
 - [Main README](../README.md) — Official API spec
 - [Product Data API](../product-data-api.md) — Unofficial API spec
-- [Without AppID Workarounds](without-appid-workarounds.md) — **No `appId`/`secret`? Start here** (`an_redir`, dashboard, Involve/AT)
-- [Reverse Engineering Guide](../REVERSE_ENGINEERING.md) — **Start here to understand repo internals**
+- [Without AppID Workarounds](without-appid-workarounds.md) — **No `appId`/`secret`? Start here** (`an_redir`, dashboard, Involve/AT) — also summarized in guide §7 + deep dive `06`
+- [Reverse Engineering Guide](../REVERSE_ENGINEERING.md) — **Start here to understand repo internals** (§7 covers workarounds)
 - [Reverse Engineering Deep Dives](./reverse-engineering/) — Modular breakdowns
   - [01 Repo Map](./reverse-engineering/01-repo-map.md)
   - [02 Auth Flow](./reverse-engineering/02-auth-flow.md)
