@@ -4,6 +4,8 @@
 
 **Official source:** <https://affiliate.shopee.vn/open_api/list>
 
+> **New:** Want to understand how this repo works internally? See [Reverse Engineering Guide](REVERSE_ENGINEERING.md) — includes auto-analysis tools (`tools/re-analyzer.js`), auth-flow tracer (`tools/trace-signature.js`), security scanner, and deep dives in `docs/reverse-engineering/`.
+
 ## Contents
 
 - [Scope](#scope)
